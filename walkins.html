@@ -219,6 +219,9 @@
       width: 100%;
       min-height: 100vh;
 
+      /* Keep direct links like #puzzle-paint aligned neatly on phones */
+      scroll-margin-top: 18px;
+
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1405,6 +1408,71 @@
       );
 
     });
+
+
+    /* ==============================
+       DIRECT ACTIVITY LINKS
+       Keeps Pick For Me links aligned
+       after images finish loading.
+    ============================== */
+
+    function scrollToActivityFromHash() {
+
+      if (!window.location.hash) return;
+
+      const targetId =
+        decodeURIComponent(
+          window.location.hash.substring(1)
+        );
+
+      const target =
+        document.getElementById(targetId);
+
+      if (!target) return;
+
+      /* Make sure the target is visible immediately */
+      target.classList.add("visible");
+
+      /*
+        Wait for the browser to finish laying out
+        all loaded images before setting the final
+        scroll position. This prevents mobile Safari
+        from landing above/below the chosen activity.
+      */
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+
+          target.scrollIntoView({
+            behavior: "auto",
+            block: "start"
+          });
+
+        });
+      });
+
+      /* Small second correction for iPhone Safari */
+      setTimeout(() => {
+
+        target.scrollIntoView({
+          behavior: "auto",
+          block: "start"
+        });
+
+      }, 180);
+
+    }
+
+
+    window.addEventListener(
+      "load",
+      scrollToActivityFromHash
+    );
+
+
+    window.addEventListener(
+      "hashchange",
+      scrollToActivityFromHash
+    );
 
   </script>
 
