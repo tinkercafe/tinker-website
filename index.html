@@ -903,79 +903,70 @@
       }
 
       /*
-        PHONE TABLE LAYOUT
-        The three choices are intentionally large and overlap slightly,
-        so the tabletop feels full instead of stretched like desktop.
+        RESPONSIVE PHONE TABLE LAYOUT
+        Vertical spacing is based on screen width rather than screen height.
+        This keeps the composition consistent across iPhone, Android,
+        short Safari viewports, and tall phones.
       */
       .table-section {
-  min-height: 155svh;
-  background-size: auto 100%;
-  background-position: center top;
-}
+        min-height: 430vw;
+        background-size: auto 100%;
+        background-position: center top;
+      }
 
       .menu-item {
-  max-width: none;
-}
+        max-width: none;
+      }
 
-.tinker-helper {
-  width: 55vw;
-  max-width: 500px;
-  left: 60vw;
-  top: -1%;
- 
+      .tinker-helper {
+        width: clamp(190px, 55vw, 300px);
+        max-width: none;
+        left: auto;
+        right: -8vw;
+        top: 2vw;
+        z-index: 30;
+      }
 
-  z-index: 30;
-}
+      .cafe {
+        width: 110vw;
+        height: 110vw;
+        left: -18vw;
+        top: 10vw;
+        --angle: -5deg;
+        z-index: 6;
+      }
 
-.cafe {
-  width: 110vw;
-  height: 110vw;
+      .walkins {
+        width: 105vw;
+        height: 105vw;
+        left: 70%;
+        top: 105vw;
+        --angle: 14deg;
+        z-index: 8;
+      }
 
-  left: -18vw;
-  top: 4%;
+      .pickforme {
+        width: 100vw;
+        height: 100vw;
+        right: 20vw;
+        top: 205vw;
+        --angle: -9deg;
+        z-index: 7;
+      }
 
-  --angle: -5deg;
-  z-index: 6;
-}
-
-.walkins {
-  width: 105vw;
-  height: 105vw;
-
-  left: 70%;
-  top: 27%;
-
-  --angle: 14deg;
-  z-index: 8;
-}
-
-.pickforme {
-  width: 100vw;
-  height: 100vw;
-
-  right: 20vw;
-  top: 49%;
-
-  --angle: -9deg;
-  z-index: 7;
-}
-
-.workshop-calendar {
-  width: 100vw;
-  height: 100vw;
-
-  left: 70%;
-  top: 67%;
-
-  --angle: -3deg;
-  z-index: 9;
-}
-
+      .workshop-calendar {
+        width: 100vw;
+        height: 100vw;
+        left: 70%;
+        top: 300vw;
+        --angle: -3deg;
+        z-index: 9;
+      }
 
       .tinker-bubble {
         position: absolute;
         width: min(300px, 88vw);
-        right: 26%;
+        right: 18%;
         top: 88%;
         padding: 25px 19px 19px;
       }
@@ -1035,47 +1026,18 @@
       .menu-item.show:active {
         opacity: .82;
       }
-.while-you-wait-button {
-  width: 82%;
-  min-width: 0;
 
-  left: 50%;
-  bottom: 1.5%;
-
-  padding: 15px 18px;
-
-  font-size: 18px;
-}
+      .while-you-wait-button {
+        width: min(82%, 420px);
+        min-width: 0;
+        left: 50%;
+        bottom: 7vw;
+        padding: 15px 18px;
+        font-size: 18px;
+        z-index: 40;
+      }
     }
-    
 
-    /* Shorter phones */
-    @media (max-width: 700px) and (max-height: 720px) {
-
-      .table-section {
-  min-height: 175svh;
-}
-
-.cafe {
-  top: 0;
-}
-
-.walkins {
-  top: 23%;
-}
-
-.pickforme {
-  top: 47%;
-}
-
-.workshop-calendar {
-  top: 70%;
-}
-
-.tinker-helper {
-  top: 91%;
-}
-}
     /* Phone turned sideways */
     @media (max-width: 900px) and (orientation: landscape) {
 
@@ -1110,17 +1072,18 @@
         width: 27vw;
         top: 58%;
         right: 2%;
+        left: auto;
       }
-      
-.workshop-calendar {
-  width: 42vw;
-  height: 42vw;
-}
-      
-      
 
+      .workshop-calendar {
+        width: 42vw;
+        height: 42vw;
+      }
+
+      .while-you-wait-button {
+        bottom: 3%;
+      }
     }
-
 
 
     /* ==============================
