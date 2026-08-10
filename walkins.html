@@ -912,6 +912,21 @@
       document.getElementById("activitiesContainer");
 
 
+    /*
+      Image column examples currently used in Google Sheets:
+      Images/woodenflower.png
+      Images/diamondpainting.webp
+      Images/paintbynumber.webp
+      Images/flowerlegoset.png
+      Images/artlegoset.webp
+      Images/oilpastels.webp
+      Images/watercolor.webp
+
+      Keep the filenames and capitalization exactly the same
+      as the files inside your GitHub Images folder.
+    */
+
+
     /* ============================================
        CSV PARSER
        Handles commas and quotation marks correctly.
@@ -998,7 +1013,11 @@
       const time = escapeHTML(activity.Time || "Take your time");
       const description = escapeHTML(activity.Description);
       const included = escapeHTML(activity.Included);
-      const image = escapeHTML(activity.Image);
+      const image = escapeHTML(
+        String(activity.Image || "")
+          .trim()
+          .replaceAll("\\", "/")
+      );
 
       const imageAngle = index % 2 === 0 ? "-3deg" : "3deg";
       const cardAngle = index % 2 === 0 ? "1deg" : "-1deg";
@@ -1010,6 +1029,8 @@
             class="activity-image"
             alt="${name} activity"
             loading="lazy"
+            decoding="async"
+            onerror="this.closest('.activity-image-box').innerHTML='<div class=&quot;activity-image-placeholder&quot;>Image coming soon</div>';"
           >`
         : `
           <div class="activity-image-placeholder">
@@ -1147,9 +1168,9 @@
 
     async function loadWalkIns() {
       try {
-        /* cache-buster helps the browser request the newest published CSV */
+        /* Abort slow requests so the loader can never remain stuck forever. */
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 8000);
+        const timeoutId = setTimeout(() => controller.abort(), 6000);
 
         const response = await fetch(SHEET_URL, {
           signal: controller.signal
