@@ -1144,13 +1144,273 @@
       }
 
     }
+    /* ==============================
+   TINKER LOADING SCREEN
+============================== */
+
+body.loading {
+  overflow: hidden;
+}
+
+.tinker-loader {
+  position: fixed;
+  inset: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  background: #9eafbc;
+
+  z-index: 99999;
+
+  opacity: 1;
+  visibility: visible;
+
+  transition:
+    opacity .6s ease,
+    visibility .6s ease;
+}
+
+.tinker-loader.loaded {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+
+/* PALETTE */
+
+.palette-loader {
+  position: relative;
+
+  width: 150px;
+  height: 120px;
+
+  background: #f4eadc;
+
+  border-radius:
+    55% 48% 52% 45% /
+    55% 50% 48% 45%;
+
+  transform: rotate(-8deg);
+
+  box-shadow:
+    0 15px 30px
+    rgba(0, 0, 0, .15);
+
+  animation:
+    paletteFloat
+    1.7s
+    ease-in-out
+    infinite;
+}
+
+
+/* THUMB HOLE */
+
+.palette-hole {
+  position: absolute;
+
+  width: 29px;
+  height: 29px;
+
+  right: 22px;
+  top: 22px;
+
+  background: #9eafbc;
+
+  border-radius: 50%;
+}
+
+
+/* PAINT DOTS */
+
+.paint-dot {
+  position: absolute;
+
+  width: 20px;
+  height: 20px;
+
+  border-radius:
+    60% 45% 55% 50%;
+
+  animation:
+    paintPulse
+    1.3s
+    ease-in-out
+    infinite;
+}
+
+.dot-1 {
+  background: #df8c66;
+
+  left: 25px;
+  top: 28px;
+
+  animation-delay: 0s;
+}
+
+.dot-2 {
+  background: #4b6d87;
+
+  left: 55px;
+  top: 17px;
+
+  animation-delay: .15s;
+}
+
+.dot-3 {
+  background: #a98b91;
+
+  left: 35px;
+  bottom: 24px;
+
+  animation-delay: .3s;
+}
+
+.dot-4 {
+  background: #d5b35d;
+
+  left: 73px;
+  bottom: 22px;
+
+  animation-delay: .45s;
+}
+
+
+/* TEXT */
+
+.loading-text {
+  margin-top: 30px;
+
+  color: #4b382f;
+
+  font-size:
+    clamp(18px, 3vw, 24px);
+
+  font-weight: 800;
+
+  text-align: center;
+}
+
+
+/* LITTLE MOVING DOTS */
+
+.loading-dots {
+  display: flex;
+
+  gap: 8px;
+
+  margin-top: 12px;
+}
+
+.loading-dots span {
+  width: 8px;
+  height: 8px;
+
+  border-radius: 50%;
+
+  background: #4b382f;
+
+  animation:
+    loaderDot
+    1s
+    ease-in-out
+    infinite;
+}
+
+.loading-dots span:nth-child(2) {
+  animation-delay: .15s;
+}
+
+.loading-dots span:nth-child(3) {
+  animation-delay: .3s;
+}
+
+
+/* ANIMATIONS */
+
+@keyframes paletteFloat {
+
+  0%,
+  100% {
+    transform:
+      translateY(0)
+      rotate(-8deg);
+  }
+
+  50% {
+    transform:
+      translateY(-12px)
+      rotate(-4deg);
+  }
+
+}
+
+
+@keyframes paintPulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.25);
+  }
+
+}
+
+
+@keyframes loaderDot {
+
+  0%,
+  100% {
+    opacity: .3;
+    transform: translateY(0);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translateY(-5px);
+  }
+
+}
 
   </style>
 
 </head>
 
 
-<body>
+<body class="loading">
+  <!-- TINKER LOADING SCREEN -->
+
+<div id="tinkerLoader" class="tinker-loader">
+
+  <div class="palette-loader">
+
+    <div class="palette-hole"></div>
+
+    <span class="paint-dot dot-1"></span>
+    <span class="paint-dot dot-2"></span>
+    <span class="paint-dot dot-3"></span>
+    <span class="paint-dot dot-4"></span>
+
+  </div>
+
+  <p class="loading-text">Tinkering things together...</p>
+
+  <div class="loading-dots">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+</div>
+
+
 
 
   <!-- ==============================
@@ -1882,6 +2142,20 @@ function closeTinkerBubble() {
   );
 
 }
+/* ==============================
+   TINKER LOADING SCREEN
+============================== */
+
+window.addEventListener("load", () => {
+
+  const loader =
+    document.getElementById("tinkerLoader");
+
+  loader.classList.add("loaded");
+
+  document.body.classList.remove("loading");
+
+});
   </script>
 
 
