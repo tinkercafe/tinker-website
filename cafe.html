@@ -677,6 +677,65 @@
 
     }
 
+
+    /* ==============================
+       CUTE MENU EXTRAS
+    ============================== */
+
+    .limited-banner {
+      display: inline-block;
+      align-self: flex-start;
+      margin: -18px 0 24px;
+      padding: 13px 22px;
+      border: 3px solid #49382f;
+      border-radius: 12px;
+      background: #df8c66;
+      color: #fffaf2;
+      font-size: clamp(16px, 1.6vw, 21px);
+      font-weight: 900;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      transform: rotate(-3deg);
+      box-shadow:
+        5px 6px 0 #49382f,
+        0 12px 22px rgba(73, 56, 47, .18);
+      animation: limitedWiggle 2.4s ease-in-out infinite;
+    }
+
+    @keyframes limitedWiggle {
+      0%, 100% { transform: rotate(-3deg) scale(1); }
+      50% { transform: rotate(1deg) scale(1.04); }
+    }
+
+    .choice-box {
+      margin-top: 28px;
+      padding: 18px;
+      border-radius: 20px;
+      background: rgba(217, 192, 161, .52);
+    }
+
+    .choice-title {
+      margin-bottom: 12px;
+      font-size: clamp(17px, 1.6vw, 21px);
+      font-weight: 900;
+    }
+
+    .choice-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .choice-pill {
+      display: inline-block;
+      padding: 10px 15px;
+      border-radius: 999px;
+      background: #f4eadc;
+      font-size: clamp(15px, 1.3vw, 18px);
+      font-weight: 800;
+      box-shadow: 0 5px 12px rgba(73, 56, 47, .10);
+    }
+
   </style>
 
 </head>
@@ -727,247 +786,185 @@
 
   <!-- MENU -->
 
-  <main class="menu-sections">
-
+<main class="menu-sections">
 
     <!-- ==============================
-         HOT DRINKS
+         TINKER NORMS
     ============================== -->
 
     <section
       class="menu-section"
-      id="hot-drinks"
+      id="tinker-norms"
       style="
         --visual-angle: -3deg;
         --card-angle: 1deg;
       "
     >
-
       <div class="menu-layout">
 
         <div class="category-visual">
-
-       
-          <h2>
-            Hot Drinks
-          </h2>
-
+          <h2>Tinker Norms</h2>
           <p>
-            Warm drinks for slow,
-            cozy creative moments.
+            The classics. Simple, reliable,
+            and always a good idea.
           </p>
-
         </div>
-
 
         <article class="menu-card">
 
           <h2 class="menu-card-title">
-            Hot Drinks
+            Tinker Norms
           </h2>
 
           <div class="menu-list">
 
-            <!-- EDIT THESE NAMES AND PRICES -->
-
             <div class="menu-row">
-              <span class="item-name">
-                Coffee
-              </span>
-
+              <span class="item-name">Espresso</span>
               <span class="menu-dots"></span>
-
-              <span class="item-price">
-                $__
-              </span>
+              <span class="item-price">$__</span>
             </div>
 
             <div class="menu-row">
-              <span class="item-name">
-                Lattes
-              </span>
-
+              <span class="item-name">Americano</span>
               <span class="menu-dots"></span>
-
-              <span class="item-price">
-                $__
-              </span>
+              <span class="item-price">$__</span>
             </div>
 
             <div class="menu-row">
-              <span class="item-name">
-                Mochas
-              </span>
-
+              <span class="item-name">Cappuccino</span>
               <span class="menu-dots"></span>
-
-              <span class="item-price">
-                $__
-              </span>
-            </div>
-
-            <div class="menu-row">
-              <span class="item-name">
-                Hot Chocolate
-              </span>
-
-              <span class="menu-dots"></span>
-
-              <span class="item-price">
-                $__
-              </span>
-            </div>
-
-            <div class="menu-row">
-              <span class="item-name">
-                Tea
-              </span>
-
-              <span class="menu-dots"></span>
-
-              <span class="item-price">
-                $__
-              </span>
-            </div>
-
-            <div class="menu-row">
-              <span class="item-name">
-                Specialty Drinks
-              </span>
-
-              <span class="menu-dots"></span>
-
-              <span class="item-price">
-                $__
-              </span>
+              <span class="item-price">$__</span>
             </div>
 
           </div>
 
-          <p class="editable-note">
-            Replace these example items and prices
-            with your final menu.
-          </p>
-
         </article>
 
       </div>
-
     </section>
 
 
     <!-- ==============================
-         COLD DRINKS
+         ICED LATTES
     ============================== -->
 
     <section
       class="menu-section"
-      id="cold-drinks"
+      id="iced-lattes"
       style="
         --visual-angle: 3deg;
         --card-angle: -1deg;
       "
     >
-
       <div class="menu-layout">
 
         <div class="category-visual">
-
-    
-
-          <h2>
-            Cold Drinks
-          </h2>
-
+          <h2>Iced Lattes</h2>
           <p>
-            Chilled café favorites
-            served over ice.
+            Iced, creamy, and made for
+            sipping while you create.
           </p>
-
         </div>
-
 
         <article class="menu-card">
 
           <h2 class="menu-card-title">
-            Cold Drinks
+            Iced Lattes
           </h2>
 
           <div class="menu-list">
 
-            <!-- EDIT THESE NAMES AND PRICES -->
-
             <div class="menu-row">
-              <span class="item-name">
-                Iced Coffee
-              </span>
-
+              <span class="item-name">Mocha</span>
               <span class="menu-dots"></span>
-
-              <span class="item-price">
-                $__
-              </span>
+              <span class="item-price">$__</span>
             </div>
 
             <div class="menu-row">
-              <span class="item-name">
-                Iced Lattes
-              </span>
-
+              <span class="item-name">Latte</span>
               <span class="menu-dots"></span>
-
-              <span class="item-price">
-                $__
-              </span>
+              <span class="item-price">$__</span>
             </div>
 
             <div class="menu-row">
-              <span class="item-name">
-                Iced Mochas
-              </span>
-
+              <span class="item-name">Caramel</span>
               <span class="menu-dots"></span>
-
-              <span class="item-price">
-                $__
-              </span>
+              <span class="item-price">$__</span>
             </div>
 
             <div class="menu-row">
-              <span class="item-name">
-                Iced Chocolate
-              </span>
-
+              <span class="item-name">Lotus</span>
               <span class="menu-dots"></span>
-
-              <span class="item-price">
-                $__
-              </span>
-            </div>
-
-            <div class="menu-row">
-              <span class="item-name">
-                Cold Specialty Drink
-              </span>
-
-              <span class="menu-dots"></span>
-
-              <span class="item-price">
-                $__
-              </span>
+              <span class="item-price">$__</span>
             </div>
 
           </div>
 
-          <p class="editable-note">
-            Matcha, refreshers, and lemonade
-            have been left out.
+        </article>
+
+      </div>
+    </section>
+
+
+    <!-- ==============================
+         HOT LATTES
+    ============================== -->
+
+    <section
+      class="menu-section"
+      id="hot-lattes"
+      style="
+        --visual-angle: -2deg;
+        --card-angle: 1deg;
+      "
+    >
+      <div class="menu-layout">
+
+        <div class="category-visual">
+          <h2>Hot Lattes</h2>
+          <p>
+            Warm, creamy comfort
+            for slower Tinker moments.
           </p>
+        </div>
+
+        <article class="menu-card">
+
+          <h2 class="menu-card-title">
+            Hot Lattes
+          </h2>
+
+          <div class="menu-list">
+
+            <div class="menu-row">
+              <span class="item-name">Mocha</span>
+              <span class="menu-dots"></span>
+              <span class="item-price">$__</span>
+            </div>
+
+            <div class="menu-row">
+              <span class="item-name">Latte</span>
+              <span class="menu-dots"></span>
+              <span class="item-price">$__</span>
+            </div>
+
+            <div class="menu-row">
+              <span class="item-name">Caramel</span>
+              <span class="menu-dots"></span>
+              <span class="item-price">$__</span>
+            </div>
+
+            <div class="menu-row">
+              <span class="item-name">Lotus</span>
+              <span class="menu-dots"></span>
+              <span class="item-price">$__</span>
+            </div>
+
+          </div>
 
         </article>
 
       </div>
-
     </section>
 
 
@@ -979,27 +976,19 @@
       class="menu-section"
       id="frappes"
       style="
-        --visual-angle: -2deg;
-        --card-angle: 1deg;
+        --visual-angle: 2deg;
+        --card-angle: -1deg;
       "
     >
-
       <div class="menu-layout">
 
         <div class="category-visual">
-
-       
-          <h2>
-            Frappes
-          </h2>
-
+          <h2>Frappes</h2>
           <p>
-            Cold, blended,
-            creamy café drinks.
+            Thick, cold, creamy
+            and slightly over-the-top.
           </p>
-
         </div>
-
 
         <article class="menu-card">
 
@@ -1009,91 +998,29 @@
 
           <div class="menu-list">
 
-            <!-- EDIT THESE NAMES AND PRICES -->
-
             <div class="menu-row">
-              <span class="item-name">
-                Coffee Frappe
-              </span>
-
+              <span class="item-name">Mocha</span>
               <span class="menu-dots"></span>
-
-              <span class="item-price">
-                $__
-              </span>
+              <span class="item-price">$__</span>
             </div>
 
             <div class="menu-row">
-              <span class="item-name">
-                Mocha Frappe
-              </span>
-
+              <span class="item-name">Caramel</span>
               <span class="menu-dots"></span>
-
-              <span class="item-price">
-                $__
-              </span>
+              <span class="item-price">$__</span>
             </div>
 
             <div class="menu-row">
-              <span class="item-name">
-                Caramel Frappe
-              </span>
-
+              <span class="item-name">Lotus</span>
               <span class="menu-dots"></span>
-
-              <span class="item-price">
-                $__
-              </span>
-            </div>
-
-            <div class="menu-row">
-              <span class="item-name">
-                Lotus Frappe
-              </span>
-
-              <span class="menu-dots"></span>
-
-              <span class="item-price">
-                $__
-              </span>
-            </div>
-
-            <div class="menu-row">
-              <span class="item-name">
-                Oreo Frappe
-              </span>
-
-              <span class="menu-dots"></span>
-
-              <span class="item-price">
-                $__
-              </span>
-            </div>
-
-            <div class="menu-row">
-              <span class="item-name">
-                Seasonal Frappe
-              </span>
-
-              <span class="menu-dots"></span>
-
-              <span class="item-price">
-                $__
-              </span>
+              <span class="item-price">$__</span>
             </div>
 
           </div>
 
-          <p class="editable-note">
-            Change or remove any frappe flavor
-            whenever your menu changes.
-          </p>
-
         </article>
 
       </div>
-
     </section>
 
 
@@ -1105,27 +1032,19 @@
       class="menu-section"
       id="smoothies"
       style="
-        --visual-angle: 2deg;
-        --card-angle: -1deg;
+        --visual-angle: -3deg;
+        --card-angle: 1deg;
       "
     >
-
       <div class="menu-layout">
 
         <div class="category-visual">
-
-       
-          <h2>
-            Smoothies
-          </h2>
-
+          <h2>Smoothies</h2>
           <p>
-            Fruity blended drinks
-            served cold.
+            Sweet, blended,
+            and made to disappear fast.
           </p>
-
         </div>
-
 
         <article class="menu-card">
 
@@ -1135,93 +1054,206 @@
 
           <div class="menu-list">
 
-            <!-- EDIT THESE NAMES AND PRICES -->
-
             <div class="menu-row">
-              <span class="item-name">
-                Strawberry
-              </span>
-
+              <span class="item-name">Lotus</span>
               <span class="menu-dots"></span>
-
-              <span class="item-price">
-                $__
-              </span>
+              <span class="item-price">$__</span>
             </div>
 
             <div class="menu-row">
-              <span class="item-name">
-                Mango
-              </span>
-
+              <span class="item-name">Nutella</span>
               <span class="menu-dots"></span>
-
-              <span class="item-price">
-                $__
-              </span>
+              <span class="item-price">$__</span>
             </div>
 
             <div class="menu-row">
-              <span class="item-name">
-                Mixed Berry
-              </span>
-
+              <span class="item-name">Kinder</span>
               <span class="menu-dots"></span>
-
-              <span class="item-price">
-                $__
-              </span>
+              <span class="item-price">$__</span>
             </div>
 
             <div class="menu-row">
-              <span class="item-name">
-                Peach
-              </span>
-
+              <span class="item-name">Cookies &amp; Cream</span>
               <span class="menu-dots"></span>
-
-              <span class="item-price">
-                $__
-              </span>
+              <span class="item-price">$__</span>
             </div>
 
             <div class="menu-row">
-              <span class="item-name">
-                Tropical
-              </span>
-
+              <span class="item-name">Strawberry Banana</span>
               <span class="menu-dots"></span>
+              <span class="item-price">$__</span>
+            </div>
 
-              <span class="item-price">
-                $__
-              </span>
+          </div>
+
+        </article>
+
+      </div>
+    </section>
+
+
+    <!-- ==============================
+         TINKER SPECIALS
+    ============================== -->
+
+    <section
+      class="menu-section"
+      id="tinker-specials"
+      style="
+        --visual-angle: 3deg;
+        --card-angle: -1deg;
+      "
+    >
+      <div class="menu-layout">
+
+        <div class="category-visual">
+          <h2>Tinker Specials</h2>
+          <p>
+            A little extra,
+            for as long as they last.
+          </p>
+        </div>
+
+        <article class="menu-card">
+
+          <span class="limited-banner">
+            ✦ LIMITED TIME ONLY ✦
+          </span>
+
+          <h2 class="menu-card-title">
+            Tinker Specials
+          </h2>
+
+          <div class="menu-list">
+
+            <div class="menu-row">
+              <span class="item-name">Pistachio Chocolate</span>
+              <span class="menu-dots"></span>
+              <span class="item-price">$__</span>
             </div>
 
             <div class="menu-row">
-              <span class="item-name">
-                Seasonal Smoothie
-              </span>
-
+              <span class="item-name">White Chocolate Covered Strawberry</span>
               <span class="menu-dots"></span>
+              <span class="item-price">$__</span>
+            </div>
 
-              <span class="item-price">
-                $__
-              </span>
+            <div class="menu-row">
+              <span class="item-name">Coming Soon...</span>
+              <span class="menu-dots"></span>
+              <span class="item-price">$__</span>
+            </div>
+
+          </div>
+
+        </article>
+
+      </div>
+    </section>
+
+
+    <!-- ==============================
+         ICED TEA
+    ============================== -->
+
+    <section
+      class="menu-section"
+      id="iced-tea"
+      style="
+        --visual-angle: -2deg;
+        --card-angle: 1deg;
+      "
+    >
+      <div class="menu-layout">
+
+        <div class="category-visual">
+          <h2>Iced Tea</h2>
+          <p>
+            Light, chilled,
+            and easy to sip.
+          </p>
+        </div>
+
+        <article class="menu-card">
+
+          <h2 class="menu-card-title">
+            Iced Tea
+          </h2>
+
+          <div class="menu-list">
+
+            <div class="menu-row">
+              <span class="item-name">Iced Tea</span>
+              <span class="menu-dots"></span>
+              <span class="item-price">$__</span>
             </div>
 
           </div>
 
           <p class="editable-note">
-            Replace these sample flavors
-            with your available smoothies.
+            Add your iced tea flavors here whenever you decide them.
           </p>
 
         </article>
 
       </div>
-
     </section>
 
+
+    <!-- ==============================
+         REFRESHERS
+    ============================== -->
+
+    <section
+      class="menu-section"
+      id="refreshers"
+      style="
+        --visual-angle: 2deg;
+        --card-angle: -1deg;
+      "
+    >
+      <div class="menu-layout">
+
+        <div class="category-visual">
+          <h2>Refreshers</h2>
+          <p>
+            Pick your flavor,
+            then choose what makes it sparkle.
+          </p>
+        </div>
+
+        <article class="menu-card">
+
+          <h2 class="menu-card-title">
+            Refreshers
+          </h2>
+
+          <div class="menu-list">
+
+            <div class="menu-row">
+              <span class="item-name">Refresher</span>
+              <span class="menu-dots"></span>
+              <span class="item-price">$__</span>
+            </div>
+
+          </div>
+
+          <div class="choice-box">
+            <p class="choice-title">
+              Choose your base
+            </p>
+
+            <div class="choice-pills">
+              <span class="choice-pill">Energy Drink</span>
+              <span class="choice-pill">Lime Soda</span>
+              <span class="choice-pill">Seltzer</span>
+            </div>
+          </div>
+
+        </article>
+
+      </div>
+    </section>
 
   </main>
 
@@ -1233,7 +1265,7 @@
     <div class="bottom-card">
 
       <h2>
-        Sip while you create
+        Sip Outside the Lines
       </h2>
 
       <p>
