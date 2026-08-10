@@ -83,7 +83,7 @@
       position: absolute;
       inset: 0;
 
-      background-image: url("Images/Tabletop.png");
+      background-image: url("Images/Tabletop.webp");
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
@@ -253,7 +253,7 @@
       position: relative;
       overflow: hidden;
 
-      background-image: url("Images/Tabletop.png");
+      background-image: url("Images/Tabletop.webp");
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
@@ -1143,25 +1143,22 @@ body.loading {
 }
 
 
-/* PALETTE */
+/* ==============================
+   REAL PAINTER PALETTE
+   SVG = organic blob + true hole
+============================== */
 
 .palette-loader {
-  position: relative;
+  width: 185px;
+  height: auto;
 
-  width: 150px;
-  height: 120px;
+  overflow: visible;
 
-  background: #f4eadc;
-
-  border-radius:
-    55% 48% 52% 45% /
-    55% 50% 48% 45%;
-
-  transform: rotate(-8deg);
-
-  box-shadow:
-    0 15px 30px
-    rgba(0, 0, 0, .15);
+  filter:
+    drop-shadow(
+      0 14px 16px
+      rgba(0, 0, 0, .18)
+    );
 
   animation:
     paletteFloat
@@ -1171,33 +1168,28 @@ body.loading {
 }
 
 
-/* THUMB HOLE */
+/* Main cream palette material */
 
-.palette-hole {
-  position: absolute;
-
-  width: 29px;
-  height: 29px;
-
-  right: 22px;
-  top: 22px;
-
-  background: #9eafbc;
-
-  border-radius: 50%;
+.palette-body {
+  fill: #f4eadc;
 }
 
 
-/* PAINT DOTS */
+/* Soft inner highlight for a slightly handmade feel */
 
-.paint-dot {
-  position: absolute;
+.palette-highlight {
+  fill: none;
+  stroke: rgba(255, 255, 255, .55);
+  stroke-width: 3;
+  pointer-events: none;
+}
 
-  width: 20px;
-  height: 20px;
 
-  border-radius:
-    60% 45% 55% 50%;
+/* Paint blobs inside the SVG */
+
+.palette-loader .paint-dot {
+  transform-box: fill-box;
+  transform-origin: center;
 
   animation:
     paintPulse
@@ -1206,39 +1198,23 @@ body.loading {
     infinite;
 }
 
-.dot-1 {
-  background: #df8c66;
-
-  left: 25px;
-  top: 28px;
-
+.palette-loader .dot-1 {
+  fill: #df8c66;
   animation-delay: 0s;
 }
 
-.dot-2 {
-  background: #4b6d87;
-
-  left: 55px;
-  top: 17px;
-
+.palette-loader .dot-2 {
+  fill: #4b6d87;
   animation-delay: .15s;
 }
 
-.dot-3 {
-  background: #a98b91;
-
-  left: 35px;
-  bottom: 24px;
-
+.palette-loader .dot-3 {
+  fill: #a98b91;
   animation-delay: .3s;
 }
 
-.dot-4 {
-  background: #d5b35d;
-
-  left: 73px;
-  bottom: 22px;
-
+.palette-loader .dot-4 {
+  fill: #d5b35d;
   animation-delay: .45s;
 }
 
@@ -1246,7 +1222,7 @@ body.loading {
 /* TEXT */
 
 .loading-text {
-  margin-top: 30px;
+  margin-top: 26px;
 
   color: #4b382f;
 
@@ -1263,9 +1239,7 @@ body.loading {
 
 .loading-dots {
   display: flex;
-
   gap: 8px;
-
   margin-top: 12px;
 }
 
@@ -1321,7 +1295,7 @@ body.loading {
   }
 
   50% {
-    transform: scale(1.25);
+    transform: scale(1.18);
   }
 
 }
@@ -1352,16 +1326,113 @@ body.loading {
 
 <div id="tinkerLoader" class="tinker-loader">
 
-  <div class="palette-loader">
+  <svg
+    class="palette-loader"
+    viewBox="0 0 220 170"
+    role="img"
+    aria-label="Painter palette loading"
+  >
 
-    <div class="palette-hole"></div>
+    <defs>
+      <!--
+        White = visible palette.
+        Black = true transparent thumb hole.
+      -->
+      <mask id="paletteMask">
+        <rect
+          width="220"
+          height="170"
+          fill="black"
+        />
 
-    <span class="paint-dot dot-1"></span>
-    <span class="paint-dot dot-2"></span>
-    <span class="paint-dot dot-3"></span>
-    <span class="paint-dot dot-4"></span>
+        <!-- Organic painter-palette silhouette -->
+        <path
+          fill="white"
+          d="
+            M 34 29
+            C 62 8, 110 4, 150 17
+            C 188 29, 211 56, 207 84
+            C 204 104, 190 112, 174 111
+            C 163 110, 156 116, 160 127
+            C 166 143, 150 159, 124 163
+            C 91 168, 54 159, 31 141
+            C 9 124, 3 95, 11 68
+            C 16 51, 23 38, 34 29
+            Z
+          "
+        />
 
-  </div>
+        <!-- ACTUAL transparent thumb hole -->
+        <ellipse
+          cx="166"
+          cy="60"
+          rx="17"
+          ry="21"
+          transform="rotate(18 166 60)"
+          fill="black"
+        />
+      </mask>
+    </defs>
+
+
+    <!-- Palette body, clipped by the SVG mask -->
+    <g mask="url(#paletteMask)">
+
+      <rect
+        class="palette-body"
+        width="220"
+        height="170"
+      />
+
+      <!-- Subtle highlight following the outer shape -->
+      <path
+        class="palette-highlight"
+        d="
+          M 37 31
+          C 64 13, 109 10, 147 21
+          C 181 31, 201 55, 198 81
+          C 196 96, 187 103, 173 102
+          C 154 101, 143 114, 151 132
+          C 154 141, 141 151, 121 154
+          C 91 159, 57 151, 35 134
+          C 16 119, 11 94, 18 70
+          C 22 52, 28 40, 37 31
+          Z
+        "
+      />
+
+      <!-- Paint -->
+      <circle
+        class="paint-dot dot-1"
+        cx="55"
+        cy="55"
+        r="15"
+      />
+
+      <circle
+        class="paint-dot dot-2"
+        cx="94"
+        cy="40"
+        r="15"
+      />
+
+      <circle
+        class="paint-dot dot-3"
+        cx="51"
+        cy="101"
+        r="15"
+      />
+
+      <circle
+        class="paint-dot dot-4"
+        cx="94"
+        cy="118"
+        r="15"
+      />
+
+    </g>
+
+  </svg>
 
   <p class="loading-text">Tinkering things together...</p>
 
@@ -1399,7 +1470,7 @@ body.loading {
       <div class="sign-scroll" id="signScroll">
 
         <img
-          src="Images/welcomesign.png"
+          src="Images/welcomesign.webp"
           class="sign"
           alt="Welcome to Tinker"
         >
@@ -1410,7 +1481,7 @@ body.loading {
       <!-- Order text -->
 
       <img
-        src="Images/ORDERTEXT.png"
+        src="Images/ORDERTEXT(1).webp"
         class="order-text"
         id="orderText"
         alt="Please place your order at the desk"
@@ -1420,7 +1491,7 @@ body.loading {
       <!-- Small table that zooms forward -->
 
       <img
-        src="Images/littletable.png"
+        src="Images/littletable.webp"
         class="little-table"
         id="littleTable"
         alt=""
@@ -1438,19 +1509,19 @@ body.loading {
   <section class="table-section">
 
     <img
-      src="Images/cafe.png"
+      src="Images/cafe(1).webp"
       class="menu-item cafe"
       alt="Café"
     >
 
     <img
-      src="Images/walkins.png"
+      src="Images/walkins.webp"
       class="menu-item walkins"
       alt="Walk-ins"
     >
 
     <img
-      src="Images/pickforme.png"
+      src="Images/pickforme.webp"
       class="menu-item pickforme"
       alt="Pick for me"
     >
@@ -1471,7 +1542,7 @@ body.loading {
     aria-label="Ask Tinker for help"
   >
     <img
-      src="Images/tinkerlyingdown.png"
+      src="Images/tinkerlyingdown.webp"
       class="tinker-lying"
       alt="Tinker lying on the table"
     >
@@ -1549,7 +1620,7 @@ body.loading {
 
       <div class="randomizer-display">
         <img
-          src="Images/pickforme.png"
+          src="Images/pickforme.webp"
           class="randomizer-wheel"
           id="randomizerWheel"
           alt=""
@@ -2109,14 +2180,31 @@ function closeTinkerBubble() {
    TINKER LOADING SCREEN
 ============================== */
 
+const loaderStartTime = Date.now();
+
 window.addEventListener("load", () => {
 
   const loader =
     document.getElementById("tinkerLoader");
 
-  loader.classList.add("loaded");
+  const minimumLoaderTime = 900;
 
-  document.body.classList.remove("loading");
+  const timeAlreadyShown =
+    Date.now() - loaderStartTime;
+
+  const remainingTime =
+    Math.max(
+      minimumLoaderTime - timeAlreadyShown,
+      0
+    );
+
+  setTimeout(() => {
+
+    loader.classList.add("loaded");
+
+    document.body.classList.remove("loading");
+
+  }, remainingTime);
 
 });
   </script>
