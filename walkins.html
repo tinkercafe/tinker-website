@@ -1152,10 +1152,7 @@
     async function loadWalkIns() {
       try {
         /* cache-buster helps the browser request the newest published CSV */
-        const response = await fetch(
-          `${SHEET_URL}&_=${Date.now()}`,
-          { cache: "no-store" }
-        );
+        const response = await fetch(SHEET_URL);
 
         if (!response.ok) {
           throw new Error(`Google Sheet returned ${response.status}`);
