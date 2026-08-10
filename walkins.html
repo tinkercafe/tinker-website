@@ -937,12 +937,8 @@
         } else if (char === "," && !inQuotes) {
           row.push(value);
           value = "";
-        } else if ((char === "
-" || char === "
-") && !inQuotes) {
-          if (char === "
-" && next === "
-") i++;
+        } else if ((char === "\n" || char === "\r") && !inQuotes) {
+          if (char === "\r" && next === "\n") i++;
           row.push(value);
           value = "";
 
@@ -1152,7 +1148,14 @@
     async function loadWalkIns() {
       try {
         /* cache-buster helps the browser request the newest published CSV */
-        const response = await fetch(SHEET_URL);
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 8000);
+
+        const response = await fetch(SHEET_URL, {
+          signal: controller.signal
+        });
+
+        clearTimeout(timeoutId);
 
         if (!response.ok) {
           throw new Error(`Google Sheet returned ${response.status}`);
