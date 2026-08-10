@@ -765,6 +765,32 @@
 
     }
 
+
+
+    /* Google Sheet activities with no image yet */
+    .activity-image-placeholder {
+      width: min(100%, 690px);
+      min-height: 360px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px;
+      border: 3px dashed rgba(69, 54, 47, .28);
+      border-radius: 28px;
+      background: rgba(242, 229, 211, .78);
+      color: #70584a;
+      font-size: clamp(20px, 2vw, 28px);
+      font-weight: 800;
+      text-align: center;
+      box-shadow: 0 18px 35px rgba(0, 0, 0, .12);
+    }
+
+    @media (max-width: 850px) {
+      .activity-image-placeholder {
+        min-height: 230px;
+      }
+    }
+
   </style>
 
 </head>
@@ -866,960 +892,319 @@
 
   <!-- ACTIVITY LIST -->
 
-  <main class="activities">
-
-
-    <!-- AIR-DRY CLAY -->
-
-    <section
-      class="activity"
-      id="air-dry-clay"
-      style="
-        --image-angle: -3deg;
-        --card-angle: 1deg;
-      "
-    >
-
-      <div class="activity-layout">
-
-        <div class="activity-image-box">
-
-          <img
-            src="Images/airdryclay.png"
-            class="activity-image"
-            alt="Air-dry clay activity"
-          >
-
-        </div>
-
-        <article class="activity-card">
-
-          <h2 class="activity-name">
-            Air-Dry Clay
-          </h2>
-
-          <div class="activity-details">
-
-            <div class="detail-row">
-
-              <span class="detail-label">
-                Price
-              </span>
-
-              <span>
-                $__
-              </span>
-
-            </div>
-
-            <div class="detail-row">
-
-              <span class="detail-label">
-                Time
-              </span>
-
-              <span>
-                __ minutes
-              </span>
-
-            </div>
-
-          </div>
-
-          <p class="activity-description">
-            Shape a figure, dish, charm, or any
-            little creation using soft air-dry clay.
-          </p>
-
-          <span class="included-note">
-            Materials included
-          </span>
-
-        </article>
-
-      </div>
-
-    </section>
-
-
-    <!-- CAKE PAINTING -->
-
-    <section
-      class="activity"
-      id="cake-painting"
-      style="
-        --image-angle: 3deg;
-        --card-angle: -1deg;
-      "
-    >
-
-      <div class="activity-layout">
-
-        <div class="activity-image-box">
-
-          <img
-            src="Images/cakepainting.png"
-            class="activity-image"
-            alt="Cake painting activity"
-          >
-
-        </div>
-
-        <article class="activity-card">
-
-          <h2 class="activity-name">
-            Cake Painting
-          </h2>
-
-          <div class="activity-details">
-
-            <div class="detail-row">
-
-              <span class="detail-label">
-                Price
-              </span>
-
-              <span>
-                $__
-              </span>
-
-            </div>
-
-            <div class="detail-row">
-
-              <span class="detail-label">
-                Time
-              </span>
-
-              <span>
-                __ minutes
-              </span>
-
-            </div>
-
-          </div>
-
-          <p class="activity-description">
-            Turn a miniature cake into edible art
-            using colorful frosting.
-          </p>
-
-          <span class="included-note">
-            Everything included
-          </span>
-
-        </article>
-
-      </div>
-
-    </section>
-
-
-    <!-- COLORING PAGE -->
-
-    <section
-      class="activity"
-      id="coloring-page"
-      style="
-        --image-angle: -2deg;
-        --card-angle: 1deg;
-      "
-    >
-
-      <div class="activity-layout">
-
-        <div class="activity-image-box">
-
-          <img
-            src="Images/coloringpage.png"
-            class="activity-image"
-            alt="Coloring page activity"
-          >
-
-        </div>
-
-        <article class="activity-card">
-
-          <h2 class="activity-name">
-            Coloring Page
-          </h2>
-
-          <div class="activity-details">
-
-            <div class="detail-row">
-
-              <span class="detail-label">
-                Price
-              </span>
-
-              <span>
-                100,000 LBP
-              </span>
-
-            </div>
-
-            <div class="detail-row">
-
-              <span class="detail-label">
-                Time
-              </span>
-
-              <span>
-                Take your time
-              </span>
-
-            </div>
-
-          </div>
-
-          <p class="activity-description">
-            Choose a cozy illustration and bring
-            every detail to life using your colors.
-          </p>
-
-          <span class="included-note">
-            Coloring tools included
-          </span>
-
-        </article>
-
-      </div>
-
-    </section>
-
-
-    <!-- PUZZLE PAINT -->
-
-    <section
-      class="activity"
-      id="puzzle-paint"
-      style="
-        --image-angle: 2deg;
-        --card-angle: -1deg;
-      "
-    >
-
-      <div class="activity-layout">
-
-        <div class="activity-image-box">
-
-          <img
-            src="Images/puzzlepaint.png"
-            class="activity-image"
-            alt="Paint a wooden puzzle activity"
-          >
-
-        </div>
-
-        <article class="activity-card">
-
-          <h2 class="activity-name">
-            Puzzle Paint
-          </h2>
-
-          <div class="activity-details">
-
-            <div class="detail-row">
-
-              <span class="detail-label">
-                Price
-              </span>
-
-              <span>
-                $__
-              </span>
-
-            </div>
-
-            <div class="detail-row">
-
-              <span class="detail-label">
-                Time
-              </span>
-
-              <span>
-                __ minutes
-              </span>
-
-            </div>
-
-          </div>
-
-          <p class="activity-description">
-            Paint the wooden pieces, fit them
-            together, and reveal the complete design.
-          </p>
-
-          <span class="included-note">
-            Paints and brushes included
-          </span>
-
-        </article>
-
-      </div>
-
-    </section>
-
-
-    <!-- FRAME EMBROIDERY -->
-
-    <section
-      class="activity"
-      id="frame-embroidery"
-      style="
-        --image-angle: -3deg;
-        --card-angle: 1deg;
-      "
-    >
-
-      <div class="activity-layout">
-
-        <div class="activity-image-box">
-
-          <img
-            src="Images/frameembroidery.png"
-            class="activity-image"
-            alt="Decorative frame embroidery activity"
-          >
-
-        </div>
-
-        <article class="activity-card">
-
-          <h2 class="activity-name">
-            Frame Embroidery
-          </h2>
-
-          <div class="activity-details">
-
-            <div class="detail-row">
-
-              <span class="detail-label">
-                Price
-              </span>
-
-              <span>
-                $__
-              </span>
-
-            </div>
-
-            <div class="detail-row">
-
-              <span class="detail-label">
-                Time
-              </span>
-
-              <span>
-                __ minutes
-              </span>
-
-            </div>
-
-          </div>
-
-          <p class="activity-description">
-            Stitch a small design inside a decorative
-            frame that you can display afterward.
-          </p>
-
-          <span class="included-note">
-            Thread and tools included
-          </span>
-
-        </article>
-
-      </div>
-
-    </section>
-
-
-    <!-- HAIR CLIP BEDAZZLE -->
-
-    <section
-      class="activity"
-      id="hair-clip"
-      style="
-        --image-angle: 3deg;
-        --card-angle: -1deg;
-      "
-    >
-
-      <div class="activity-layout">
-
-        <div class="activity-image-box">
-
-          <img
-            src="Images/hairclipbedazzle.png"
-            class="activity-image"
-            alt="Decorate a hair clip activity"
-          >
-
-        </div>
-
-        <article class="activity-card">
-
-          <h2 class="activity-name">
-            Bedazzle a Hair Clip
-          </h2>
-
-          <div class="activity-details">
-
-            <div class="detail-row">
-
-              <span class="detail-label">
-                Price
-              </span>
-
-              <span>
-                $__
-              </span>
-
-            </div>
-
-            <div class="detail-row">
-
-              <span class="detail-label">
-                Time
-              </span>
-
-              <span>
-                __ minutes
-              </span>
-
-            </div>
-
-          </div>
-
-          <p class="activity-description">
-            Decorate your own clip using colorful
-            gems.
-          </p>
-
-          <span class="included-note">
-            Gems included
-          </span>
-
-        </article>
-
-      </div>
-
-    </section>
-
-
-    <!-- MANDALA CIRCLE -->
-
-    <section
-      class="activity"
-      id="mandala-circle"
-      style="
-       
-        --image-angle: -2deg;
-        --card-angle: 1deg;
-      "
-    >
-
-      <div class="activity-layout">
-
-        <div class="activity-image-box">
-
-          <img
-            src="Images/mandelacircle.png"
-            class="activity-image"
-            alt="Mandala circle painting activity"
-          >
-
-        </div>
-
-        <article class="activity-card">
-
-          <h2 class="activity-name">
-            Mandala Circle
-          </h2>
-
-          <div class="activity-details">
-
-            <div class="detail-row">
-
-              <span class="detail-label">
-                Price
-              </span>
-
-              <span>
-                $__
-              </span>
-
-            </div>
-
-            <div class="detail-row">
-
-              <span class="detail-label">
-                Time
-              </span>
-
-              <span>
-                __ minutes
-              </span>
-
-            </div>
-
-          </div>
-
-          <p class="activity-description">
-            Paint a calming mandala pattern
-            across a wooden circle.
-          </p>
-
-          <span class="included-note">
-            Paint included
-          </span>
-
-        </article>
-
-      </div>
-
-    </section>
-
-
-    <!-- POUR PAINT -->
-
-    <section
-      class="activity"
-      id="pour-paint"
-      style="
-        --image-angle: 3deg;
-        --card-angle: -1deg;
-      "
-    >
-
-      <div class="activity-layout">
-
-        <div class="activity-image-box">
-
-          <img
-            src="Images/pourpaint.png"
-            class="activity-image"
-            alt="Pour paint ceramic bear activity"
-          >
-
-        </div>
-
-        <article class="activity-card">
-
-          <h2 class="activity-name">
-            Pour Paint
-          </h2>
-
-          <div class="activity-details">
-
-            <div class="detail-row">
-
-              <span class="detail-label">
-                Price
-              </span>
-
-              <span>
-                $15
-              </span>
-
-            </div>
-
-            <div class="detail-row">
-
-              <span class="detail-label">
-                Time
-              </span>
-
-              <span>
-                __ minutes
-              </span>
-
-            </div>
-
-          </div>
-
-          <p class="activity-description">
-            Pour your favorite colors over a ceramic
-            figure to create a unique marbled finish.
-          </p>
-
-          <span class="included-note">
-            Paint colors included
-          </span>
-
-        </article>
-
-      </div>
-
-    </section>
-
-
-    <!-- SCRATCH ART -->
-
-    <section
-      class="activity"
-      id="scratch-art"
-      style="
-        --image-angle: -3deg;
-        --card-angle: 1deg;
-      "
-    >
-
-      <div class="activity-layout">
-
-        <div class="activity-image-box">
-
-          <img
-            src="Images/scratchart.png"
-            class="activity-image"
-            alt="Scratch art activity"
-          >
-
-        </div>
-
-        <article class="activity-card">
-
-          <h2 class="activity-name">
-            Scratch Art
-          </h2>
-
-          <div class="activity-details">
-
-            <div class="detail-row">
-
-              <span class="detail-label">
-                Price
-              </span>
-
-              <span>
-                $2
-              </span>
-
-            </div>
-
-            <div class="detail-row">
-
-              <span class="detail-label">
-                Time
-              </span>
-
-              <span>
-                __ minutes
-              </span>
-
-            </div>
-
-          </div>
-
-          <p class="activity-description">
-            Scratch through the black coating
-            and reveal the rainbow colors underneath.
-          </p>
-
-          <span class="included-note">
-            Wooden stylus included
-          </span>
-
-        </article>
-
-      </div>
-
-    </section>
-
-
-    <!-- MINI CANVAS PAINTING -->
-
-    <section
-      class="activity"
-      id="mini-canvas"
-      style="
-        --image-angle: -2deg;
-        --card-angle: 1deg;
-      "
-    >
-
-      <div class="activity-layout">
-
-        <div class="activity-image-box">
-
-          <img
-            src="Images/minicanvas.webp"
-            class="activity-image"
-            alt="Mini canvas painting activity"
-          >
-
-        </div>
-
-        <article class="activity-card">
-
-          <h2 class="activity-name">
-            Mini Canvas Painting
-          </h2>
-
-          <div class="activity-details">
-
-            <div class="detail-row">
-
-              <span class="detail-label">
-                Price
-              </span>
-
-              <span>
-                $__
-              </span>
-
-            </div>
-
-            <div class="detail-row">
-
-              <span class="detail-label">
-                Time
-              </span>
-
-              <span>
-                Take your time
-              </span>
-
-            </div>
-
-          </div>
-
-          <p class="activity-description">
-            Paint your own tiny masterpiece on a mini canvas
-            and display it on its little wooden easel.
-          </p>
-
-          <span class="included-note">
-            Canvas, easel, paints and brush included
-          </span>
-
-        </article>
-
-      </div>
-
-    </section>
-
-
-    <!-- WOODEN FLOWER -->
-
-    <section
-      class="activity"
-      id="wooden-flower"
-      style="
-        --image-angle: 2deg;
-        --card-angle: -1deg;
-      "
-    >
-
-      <div class="activity-layout">
-
-        <div class="activity-image-box">
-
-          <img
-            src="Images/woodenflower.png"
-            class="activity-image"
-            alt="Wooden flower painting activity"
-          >
-
-        </div>
-
-        <article class="activity-card">
-
-          <h2 class="activity-name">
-            Wooden Flower
-          </h2>
-
-          <div class="activity-details">
-
-            <div class="detail-row">
-
-              <span class="detail-label">
-                Price
-              </span>
-
-              <span>
-                $__
-              </span>
-
-            </div>
-
-            <div class="detail-row">
-
-              <span class="detail-label">
-                Time
-              </span>
-
-              <span>
-                __ minutes
-              </span>
-
-            </div>
-
-          </div>
-
-          <p class="activity-description">
-            Paint a wooden flower in your
-            favorite color combination and take it home.
-          </p>
-
-          <span class="included-note">
-            Paints and brush included
-          </span>
-
-        </article>
-
-      </div>
-
-    </section>
-
-
-  </main>
+  <!--
+    Activities are generated automatically from Google Sheets.
+    Add/edit/hide/reorder rows in the sheet instead of editing this HTML.
+  -->
+  <main class="activities" id="activitiesContainer"></main>
 
 
   <script>
 
-    /* ==============================
-       SCROLL REVEAL
-    ============================== */
+    /* ============================================
+       GOOGLE SHEET WALK-INS
+       ============================================ */
 
-    const activities =
-      document.querySelectorAll(
-        ".activity"
-      );
+    const SHEET_URL =
+      "https://docs.google.com/spreadsheets/d/e/2PACX-1vTesdo6cBVhkt4L8aM1JTOtK_hcA6-rcIshRiAN7_Th527lK8UBKab8v45AI0VrrACorO9IypHUMoZc/pub?gid=0&single=true&output=csv";
+
+    const activitiesContainer =
+      document.getElementById("activitiesContainer");
 
 
-    const activityObserver =
-      new IntersectionObserver(
+    /* ============================================
+       CSV PARSER
+       Handles commas and quotation marks correctly.
+       ============================================ */
 
-        (entries) => {
+    function parseCSV(text) {
+      const rows = [];
+      let row = [];
+      let value = "";
+      let inQuotes = false;
 
-          entries.forEach((entry) => {
+      for (let i = 0; i < text.length; i++) {
+        const char = text[i];
+        const next = text[i + 1];
 
-            if (
-              entry.isIntersecting
-            ) {
+        if (char === '"') {
+          if (inQuotes && next === '"') {
+            value += '"';
+            i++;
+          } else {
+            inQuotes = !inQuotes;
+          }
+        } else if (char === "," && !inQuotes) {
+          row.push(value);
+          value = "";
+        } else if ((char === "
+" || char === "
+") && !inQuotes) {
+          if (char === "
+" && next === "
+") i++;
+          row.push(value);
+          value = "";
 
-              entry.target
-                .classList
-                .add("visible");
+          if (row.some(cell => cell.trim() !== "")) {
+            rows.push(row);
+          }
 
-            }
-
-          });
-
-        },
-
-        {
-          threshold: .22
+          row = [];
+        } else {
+          value += char;
         }
+      }
 
+      if (value.length || row.length) {
+        row.push(value);
+        if (row.some(cell => cell.trim() !== "")) {
+          rows.push(row);
+        }
+      }
+
+      if (!rows.length) return [];
+
+      const headers = rows[0].map(header => header.trim());
+
+      return rows.slice(1).map(cells => {
+        const item = {};
+        headers.forEach((header, index) => {
+          item[header] = (cells[index] ?? "").trim();
+        });
+        return item;
+      });
+    }
+
+
+    /* ============================================
+       SAFE HTML OUTPUT
+       ============================================ */
+
+    function escapeHTML(value = "") {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+
+    /* ============================================
+       CREATE ONE ACTIVITY
+       ============================================ */
+
+    function createActivityHTML(activity, index) {
+      const id = escapeHTML(activity.ID);
+      const name = escapeHTML(activity.Name);
+      const price = escapeHTML(activity.Price);
+      const time = escapeHTML(activity.Time || "Take your time");
+      const description = escapeHTML(activity.Description);
+      const included = escapeHTML(activity.Included);
+      const image = escapeHTML(activity.Image);
+
+      const imageAngle = index % 2 === 0 ? "-3deg" : "3deg";
+      const cardAngle = index % 2 === 0 ? "1deg" : "-1deg";
+
+      const imageHTML = image
+        ? `
+          <img
+            src="${image}"
+            class="activity-image"
+            alt="${name} activity"
+            loading="lazy"
+          >`
+        : `
+          <div class="activity-image-placeholder">
+            Image coming soon
+          </div>`;
+
+      return `
+        <section
+          class="activity"
+          id="${id}"
+          style="--image-angle: ${imageAngle}; --card-angle: ${cardAngle};"
+        >
+          <div class="activity-layout">
+
+            <div class="activity-image-box">
+              ${imageHTML}
+            </div>
+
+            <article class="activity-card">
+
+              <h2 class="activity-name">${name}</h2>
+
+              <div class="activity-details">
+
+                <div class="detail-row">
+                  <span class="detail-label">Price</span>
+                  <span>${price || "—"}</span>
+                </div>
+
+                <div class="detail-row">
+                  <span class="detail-label">Time</span>
+                  <span>${time}</span>
+                </div>
+
+              </div>
+
+              <p class="activity-description">${description}</p>
+
+              ${included ? `
+                <span class="included-note">${included}</span>
+              ` : ""}
+
+            </article>
+          </div>
+        </section>`;
+    }
+
+
+    /* ============================================
+       SCROLL REVEAL
+       ============================================ */
+
+    function startActivityObserver() {
+      const activities = document.querySelectorAll(".activity");
+
+      const activityObserver = new IntersectionObserver(
+        entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+            }
+          });
+        },
+        { threshold: .22 }
       );
 
-
-    activities.forEach((activity) => {
-
-      activityObserver.observe(
-        activity
-      );
-
-    });
+      activities.forEach(activity => {
+        activityObserver.observe(activity);
+      });
+    }
 
 
-    /* ==============================
+    /* ============================================
        DIRECT ACTIVITY LINKS
-       Keeps Pick For Me links aligned
-       after images finish loading.
-    ============================== */
+       Keeps Pick For Me links working:
+       walkins.html#mini-canvas
+       ============================================ */
 
     function scrollToActivityFromHash() {
-
       if (!window.location.hash) return;
 
-      const targetId =
-        decodeURIComponent(
-          window.location.hash.substring(1)
-        );
+      const targetId = decodeURIComponent(
+        window.location.hash.substring(1)
+      );
 
-      const target =
-        document.getElementById(targetId);
-
+      const target = document.getElementById(targetId);
       if (!target) return;
 
-      /* Make sure the target is visible immediately */
       target.classList.add("visible");
 
-      /*
-        Wait for the browser to finish laying out
-        all loaded images before setting the final
-        scroll position. This prevents mobile Safari
-        from landing above/below the chosen activity.
-      */
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
-
           target.scrollIntoView({
             behavior: "auto",
             block: "start"
           });
-
         });
       });
 
-      /* Small second correction for iPhone Safari */
+      /* Extra correction after dynamically loaded images settle */
       setTimeout(() => {
-
         target.scrollIntoView({
           behavior: "auto",
           block: "start"
         });
-
-      }, 180);
-
+      }, 350);
     }
 
 
-    window.addEventListener(
-      "load",
-      scrollToActivityFromHash
-    );
-
-
-    window.addEventListener(
-      "hashchange",
-      scrollToActivityFromHash
-    );
-
-
-    /* ==============================
-       TINKER LOADING SCREEN
-    ============================== */
+    /* ============================================
+       LOADING SCREEN
+       ============================================ */
 
     const loaderStartTime = Date.now();
 
-    window.addEventListener("load", () => {
-
-      const loader =
-        document.getElementById("tinkerLoader");
-
+    function hideTinkerLoader() {
+      const loader = document.getElementById("tinkerLoader");
       const minimumLoaderTime = 900;
-
-      const timeAlreadyShown =
-        Date.now() - loaderStartTime;
-
-      const remainingTime =
-        Math.max(
-          minimumLoaderTime - timeAlreadyShown,
-          0
-        );
+      const timeAlreadyShown = Date.now() - loaderStartTime;
+      const remainingTime = Math.max(
+        minimumLoaderTime - timeAlreadyShown,
+        0
+      );
 
       setTimeout(() => {
-
         loader.classList.add("loaded");
         document.body.classList.remove("loading");
-
       }, remainingTime);
+    }
 
-    });
+
+    /* ============================================
+       LOAD ACTIVITIES FROM GOOGLE SHEETS
+       ============================================ */
+
+    async function loadWalkIns() {
+      try {
+        /* cache-buster helps the browser request the newest published CSV */
+        const response = await fetch(
+          `${SHEET_URL}&_=${Date.now()}`,
+          { cache: "no-store" }
+        );
+
+        if (!response.ok) {
+          throw new Error(`Google Sheet returned ${response.status}`);
+        }
+
+        const csvText = await response.text();
+        let activities = parseCSV(csvText);
+
+        activities = activities
+          .filter(activity => {
+            const active = (activity.Active || "TRUE").toUpperCase();
+            return active !== "FALSE" && activity.ID && activity.Name;
+          })
+          .sort((a, b) => {
+            const orderA = Number(a.Order) || 9999;
+            const orderB = Number(b.Order) || 9999;
+            return orderA - orderB;
+          });
+
+        activitiesContainer.innerHTML = activities
+          .map(createActivityHTML)
+          .join("");
+
+        startActivityObserver();
+        scrollToActivityFromHash();
+
+      } catch (error) {
+        console.error("Could not load Walk-Ins:", error);
+
+        activitiesContainer.innerHTML = `
+          <section class="activity visible">
+            <div class="activity-layout" style="grid-template-columns: 1fr;">
+              <article class="activity-card visible" style="max-width: 760px; margin: auto;">
+                <h2 class="activity-name">Oops!</h2>
+                <p class="activity-description">
+                  The Walk-Ins couldn't load right now. Please refresh the page.
+                </p>
+              </article>
+            </div>
+          </section>`;
+      } finally {
+        hideTinkerLoader();
+      }
+    }
+
+
+    window.addEventListener("hashchange", scrollToActivityFromHash);
+
+    loadWalkIns();
 
   </script>
 
