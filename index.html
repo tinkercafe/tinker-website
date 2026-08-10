@@ -1,0 +1,1890 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Tinker Art Café</title>
+
+  <style>
+
+    /* ==============================
+       BASIC PAGE
+    ============================== */
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      overflow-x: hidden;
+      font-family: Arial, sans-serif;
+      background: #9eafbc;
+    }
+
+    img {
+      display: block;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+
+    /* ==============================
+       SCROLL TRANSITION AREA
+    ============================== */
+
+    /*
+      This section is taller than the screen.
+
+      While the user scrolls through it,
+      the transition screen remains fixed.
+    */
+
+    .transition-zone {
+      position: relative;
+      height: 200vh;
+      background: #9eafbc;
+    }
+
+    .transition-screen {
+      position: sticky;
+      top: 0;
+
+      width: 100%;
+      height: 100vh;
+
+      overflow: hidden;
+    }
+
+
+    /* ==============================
+       TABLETOP BEHIND THE WALL
+    ============================== */
+
+    /*
+      This is already waiting behind the welcome screen.
+
+      The blue wall fades away and reveals it.
+    */
+
+    .table-backdrop {
+      position: absolute;
+      inset: 0;
+
+      background-image: url("Images/Tabletop.png");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+
+      z-index: 1;
+    }
+
+
+    /* ==============================
+       BLUE WALL
+    ============================== */
+
+    .wall-layer {
+      position: absolute;
+      inset: 0;
+
+      background: #9eafbc;
+
+      z-index: 2;
+
+      will-change: opacity;
+    }
+
+
+    /* ==============================
+       SIGN WRAPPER
+    ============================== */
+
+    /*
+      The wrapper moves upward while scrolling.
+
+      The sign image inside it performs the
+      one-time swing when the website opens.
+    */
+
+    .sign-scroll {
+      position: absolute;
+
+      width: min(65vw, 500px);
+
+      left: 50%;
+      top: 2%;
+
+      transform: translateX(-50%);
+
+      z-index: 6;
+
+      will-change: transform, opacity;
+    }
+
+    .sign {
+      width: 100%;
+
+      transform-origin: 50% 6%;
+
+      animation:
+        signSwing
+        3.8s
+        cubic-bezier(.22, .61, .36, 1)
+        .3s
+        forwards;
+    }
+
+
+    /* ==============================
+       SMOOTH SIGN SWING
+    ============================== */
+
+    @keyframes signSwing {
+
+      0% {
+        transform: rotate(0deg);
+      }
+
+      16% {
+        transform: rotate(3.5deg);
+      }
+
+      32% {
+        transform: rotate(-2.7deg);
+      }
+
+      48% {
+        transform: rotate(1.8deg);
+      }
+
+      63% {
+        transform: rotate(-1.1deg);
+      }
+
+      77% {
+        transform: rotate(.55deg);
+      }
+
+      89% {
+        transform: rotate(-.2deg);
+      }
+
+      100% {
+        transform: rotate(0deg);
+      }
+
+    }
+
+
+    /* ==============================
+       ORDER TEXT
+    ============================== */
+
+    .order-text {
+      position: absolute;
+
+      width: min(68vw, 650px);
+
+      left: 50%;
+      top: 60%;
+
+      transform: translateX(-50%);
+
+      z-index: 5;
+
+      pointer-events: none;
+
+      will-change: transform, opacity;
+    }
+
+
+    /* ==============================
+       SMALL TABLE
+    ============================== */
+
+    /*
+      This image grows toward the viewer.
+
+      It fades near the end to reveal the
+      real full tabletop behind it.
+    */
+
+    .little-table {
+      position: absolute;
+
+      width: 100%;
+      height: 22%;
+
+      left: 0;
+      bottom: 0;
+
+      object-fit: cover;
+      object-position: top;
+
+      transform-origin: center bottom;
+
+      z-index: 4;
+
+      will-change: transform, opacity;
+    }
+
+
+    /* ==============================
+       REAL TABLETOP SECTION
+    ============================== */
+
+    .table-section {
+      min-height: 100vh;
+      width: 100%;
+
+      position: relative;
+      overflow: hidden;
+
+      background-image: url("Images/Tabletop.png");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+
+    /* ==============================
+       CLICKABLE MENU ITEMS
+    ============================== */
+
+    .menu-item {
+      position: absolute;
+
+      object-fit: contain;
+
+      cursor: pointer;
+
+      opacity: 0;
+
+      transform:
+        translateY(70px)
+        scale(.75)
+        rotate(var(--angle));
+
+      transition:
+        opacity .8s ease,
+        transform 1s cubic-bezier(.16, 1, .3, 1);
+
+      z-index: 5;
+
+      -webkit-tap-highlight-color: transparent;
+    }
+
+
+    /* CAFÉ */
+
+    .cafe {
+    width: min(50vw, 800px);
+      height: min(50vw, 800px);
+
+      left: -10%;
+      top: 20%;
+
+      --angle: -5deg;
+    }
+
+
+    /* WALK-INS */
+
+    .walkins {
+      width: min(50vw, 800px);
+      height: min(50vw, 800px);
+
+      left: 50%;
+      top: -20%;
+
+      transform:
+        translateX(-50%)
+        translateY(70px)
+        scale(.75)
+        rotate(var(--angle));
+
+      --angle: 1deg;
+    }
+    /* WORKSHOP CALENDAR */
+
+.workshop-calendar {
+  width: min(42vw, 680px);
+  height: min(42vw, 680px);
+
+  left: 50%;
+  top: 48%;
+
+  transform:
+    translateX(-50%)
+    translateY(70px)
+    scale(.75)
+    rotate(var(--angle));
+
+  --angle: -2deg;
+
+  z-index: 9;
+}
+
+
+    /* PICK FOR ME */
+
+    .pickforme {
+      width: min(50vw, 800px);
+      height: min(50vw, 800px);
+      right: -8%;
+      top: 20%;
+
+      --angle: 5deg;
+    }
+
+/* ==============================
+       MENU APPEAR ANIMATION
+    ============================== */
+
+    .menu-item.show {
+      opacity: 1;
+
+      transform:
+        translateY(0)
+        scale(1)
+        rotate(var(--angle));
+    }
+
+    .walkins.show {
+      transform:
+        translateX(-50%)
+        translateY(0)
+        scale(1)
+        rotate(var(--angle));
+    }
+    .workshop-calendar.show {
+  transform:
+    translateX(-50%)
+    translateY(0)
+    scale(1)
+    rotate(var(--angle));
+}
+  
+
+
+    /* ==============================
+       MENU HOVER
+    ============================== */
+
+    .menu-item.show:hover {
+      transform:
+        translateY(-8px)
+        scale(1.05)
+        rotate(0deg);
+
+      z-index: 20;
+    }
+
+    .walkins.show:hover {
+      transform:
+        translateX(-50%)
+        translateY(-8px)
+        scale(1.05)
+        rotate(0deg);
+    }
+    .workshop-calendar.show:hover {
+  transform:
+    translateX(-50%)
+    translateY(-8px)
+    scale(1.05)
+    rotate(0deg);
+
+  z-index: 20;
+}
+
+
+    /* ==============================
+       PICK FOR ME POPUP
+    ============================== */
+
+    .popup-overlay {
+      position: fixed;
+      inset: 0;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 20px;
+
+      background: rgba(35, 28, 24, .55);
+
+      opacity: 0;
+      pointer-events: none;
+
+      transition: opacity .3s ease;
+
+      z-index: 1000;
+    }
+
+    .popup-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .popup-box {
+      position: relative;
+
+      width: min(90vw, 650px);
+
+      padding: 45px 38px 38px;
+
+      background: #f4eadc;
+
+      border-radius: 28px;
+
+      text-align: center;
+
+      box-shadow:
+        0 25px 70px rgba(0, 0, 0, .25);
+
+      transform:
+        translateY(30px)
+        scale(.88);
+
+      transition:
+        transform .35s cubic-bezier(.16, 1, .3, 1);
+    }
+
+    .popup-overlay.active .popup-box {
+      transform:
+        translateY(0)
+        scale(1);
+    }
+
+    .popup-box h2 {
+      font-size: 38px;
+      margin-bottom: 15px;
+    }
+
+    .popup-box p {
+      font-size: 19px;
+      line-height: 1.6;
+    }
+
+    .close-popup {
+      position: absolute;
+
+      top: 12px;
+      right: 18px;
+
+      border: none;
+      background: transparent;
+
+      font-size: 38px;
+      line-height: 1;
+
+      cursor: pointer;
+    }
+
+
+
+
+    /* ==============================
+       RANDOM ACTIVITY PICKER
+    ============================== */
+
+    .randomizer-box { overflow: hidden; }
+
+    .randomizer-label {
+      margin-bottom: 14px;
+      color: #745c4e;
+      font-size: clamp(17px, 2vw, 22px);
+      font-weight: bold;
+    }
+
+    .randomizer-display {
+      min-height: 290px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+    }
+
+    .randomizer-wheel {
+      width: min(42vw, 190px);
+      margin-bottom: 20px;
+      object-fit: contain;
+      filter: drop-shadow(0 12px 16px rgba(0, 0, 0, .18));
+    }
+
+    .randomizer-wheel.spinning { animation: wheelSpin .55s linear infinite; }
+
+    @keyframes wheelSpin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    #randomActivity {
+      min-height: 92px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+      color: #4b382f;
+      font-size: clamp(30px, 6vw, 55px);
+      line-height: 1.05;
+    }
+
+    #randomActivity.flipping { animation: nameFlip .18s ease; }
+
+    @keyframes nameFlip {
+      0% { opacity: .2; transform: translateY(12px) scale(.94); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    #randomActivity.winner {
+      animation: winnerPop .65s cubic-bezier(.16, 1, .3, 1);
+    }
+
+    @keyframes winnerPop {
+      0% { opacity: 0; transform: scale(.65) rotate(-4deg); }
+      60% { transform: scale(1.12) rotate(2deg); }
+      100% { opacity: 1; transform: scale(1) rotate(0); }
+    }
+
+    .pick-button,
+    .activity-result-button {
+      min-width: 210px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 25px;
+      border: 0;
+      border-radius: 999px;
+      font-family: inherit;
+      font-size: 18px;
+      font-weight: bold;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform .2s ease, box-shadow .2s ease, opacity .25s ease;
+    }
+
+    .pick-button {
+      background: #a98b91;
+      color: white;
+      box-shadow: 0 10px 22px rgba(75, 56, 47, .22);
+    }
+
+    .pick-button:hover { transform: translateY(-3px) scale(1.03); }
+    .pick-button:disabled { cursor: wait; opacity: .55; transform: none; }
+
+    .activity-result-button {
+      display: none;
+      border: 0;
+      font-family: inherit;
+      margin: 15px auto 0;
+      background: #4b382f;
+      color: white;
+    }
+
+    .activity-result-button.show {
+      display: inline-flex;
+      animation: resultButtonAppear .5s ease both;
+    }
+
+    @keyframes resultButtonAppear {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .activity-result-button:hover { transform: translateY(-3px) scale(1.03); }
+
+
+
+    /* Keep all three menu choices reliably clickable */
+    .cafe { z-index: 6; }
+    .walkins { z-index: 8; }
+    .pickforme { z-index: 7; }
+
+    /* ==============================
+   TINKER HELP BUTTON
+============================== */
+
+.tinker-helper {
+  position: absolute;
+
+  top: 3%;
+  right: 2%;
+
+  width: min(23vw, 340px);
+
+  z-index: 35;
+}
+
+
+.tinker-button {
+  width: 100%;
+
+  display: block;
+
+  padding: 0;
+
+  border: none;
+  background: transparent;
+
+  cursor: pointer;
+
+  -webkit-tap-highlight-color: transparent;
+}
+
+
+.tinker-lying {
+  width: 100%;
+  height: auto;
+
+  object-fit: contain;
+
+  filter:
+    drop-shadow(
+      0 18px 18px
+      rgba(0, 0, 0, .24)
+    );
+
+  transition:
+    transform .3s
+    cubic-bezier(.16, 1, .3, 1);
+}
+
+
+.tinker-button:hover
+.tinker-lying {
+  transform:
+    translateY(-7px)
+    rotate(-2deg)
+    scale(1.04);
+}
+
+
+.tinker-button:active
+.tinker-lying {
+  transform:
+    scale(.97);
+}
+
+
+/* HELP BUBBLE */
+
+.tinker-bubble {
+  position: absolute;
+
+  width: min(330px, 84vw);
+
+  right: 60%;
+  top: 82%;
+
+  padding:
+    28px
+    24px
+    22px;
+
+  border-radius: 25px;
+
+  background: #f4eadc;
+  color: #4b382f;
+
+  text-align: center;
+
+  box-shadow:
+    0 18px 45px
+    rgba(0, 0, 0, .25);
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  transform:
+    translateY(15px)
+    scale(.88)
+    rotate(-1deg);
+
+  transform-origin:
+    top right;
+
+  transition:
+    opacity .25s ease,
+    visibility .25s ease,
+    transform .35s
+    cubic-bezier(.16, 1, .3, 1);
+}
+
+
+/* Little speech-bubble triangle */
+
+.tinker-bubble::after {
+  content: "";
+
+  position: absolute;
+
+  top: -17px;
+  right: 35px;
+
+  border-left:
+    18px solid transparent;
+
+  border-right:
+    18px solid transparent;
+
+  border-bottom:
+    22px solid #f4eadc;
+}
+
+
+.tinker-bubble.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+
+  transform:
+    translateY(0)
+    scale(1)
+    rotate(-1deg);
+}
+
+
+.bubble-message {
+  margin:
+    6px
+    0
+    20px;
+
+  font-size:
+    clamp(19px, 2vw, 25px);
+
+  line-height: 1.35;
+
+  font-weight: bold;
+}
+
+
+.bubble-actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  gap: 10px;
+}
+
+
+.help-choice {
+  padding:
+    11px
+    17px;
+
+  border: none;
+  border-radius: 999px;
+
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: bold;
+
+  cursor: pointer;
+
+  transition:
+    transform .2s ease,
+    opacity .2s ease;
+}
+
+
+.help-choice:hover {
+  transform:
+    translateY(-2px)
+    scale(1.03);
+}
+
+
+.help-yes {
+  background: #9f8087;
+  color: white;
+}
+
+
+.help-no {
+  background: #dfc9ae;
+  color: #4b382f;
+}
+
+
+.bubble-close {
+  position: absolute;
+
+  top: 7px;
+  right: 13px;
+
+  padding: 3px;
+
+  border: none;
+  background: transparent;
+
+  color: #4b382f;
+
+  font-size: 27px;
+  line-height: 1;
+
+  cursor: pointer;
+}
+/* WHILE YOU WAIT BUTTON */
+
+.while-you-wait-button {
+  position: absolute;
+
+  left: 50%;
+  bottom: 3%;
+
+  transform: translateX(-50%);
+
+  min-width: 270px;
+  padding: 16px 28px;
+
+  border-radius: 999px;
+
+  background: #4b382f;
+  color: white;
+
+  text-align: center;
+  text-decoration: none;
+
+  font-size: 20px;
+  font-weight: 900;
+
+  box-shadow: 0 12px 25px rgba(0, 0, 0, .22);
+
+  z-index: 40;
+}
+
+.while-you-wait-button:hover {
+  transform:
+    translateX(-50%)
+    translateY(-4px)
+    scale(1.03);
+}
+    /* ==============================
+       MOBILE
+    ============================== */
+
+    @media (max-width: 700px) {
+
+      /* Welcome transition */
+      .transition-zone {
+        height: 120vh;
+      }
+
+      .sign-scroll {
+        width: 82vw;
+        top: 7%;
+      }
+
+      .order-text {
+        width: 88vw;
+        top: 56%;
+      }
+
+      .little-table {
+        height: 20%;
+      }
+
+      /*
+        PHONE TABLE LAYOUT
+        The three choices are intentionally large and overlap slightly,
+        so the tabletop feels full instead of stretched like desktop.
+      */
+      .table-section {
+  min-height: 155svh;
+  background-size: auto 100%;
+  background-position: center top;
+}
+
+      .menu-item {
+  max-width: none;
+}
+
+.tinker-helper {
+  width: 55vw;
+  max-width: 500px;
+  left: 60vw;
+  top: -1%;
+ 
+
+  z-index: 30;
+}
+
+.cafe {
+  width: 110vw;
+  height: 110vw;
+
+  left: -18vw;
+  top: 4%;
+
+  --angle: -5deg;
+  z-index: 6;
+}
+
+.walkins {
+  width: 105vw;
+  height: 105vw;
+
+  left: 70%;
+  top: 27%;
+
+  --angle: 14deg;
+  z-index: 8;
+}
+
+.pickforme {
+  width: 100vw;
+  height: 100vw;
+
+  right: 20vw;
+  top: 49%;
+
+  --angle: -9deg;
+  z-index: 7;
+}
+
+.workshop-calendar {
+  width: 100vw;
+  height: 100vw;
+
+  left: 70%;
+  top: 67%;
+
+  --angle: -3deg;
+  z-index: 9;
+}
+
+
+      .tinker-bubble {
+        position: absolute;
+        width: min(300px, 88vw);
+        right: 26%;
+        top: 88%;
+        padding: 25px 19px 19px;
+      }
+
+      .tinker-bubble::after {
+        right: 30px;
+      }
+
+      /* Randomizer popup fits neatly on phones */
+      .popup-overlay {
+        padding: 14px;
+      }
+
+      .popup-box {
+        width: 80vw;
+        max-height: 92svh;
+        overflow-y: auto;
+        padding: 42px 20px 25px;
+        border-radius: 24px;
+      }
+
+      .randomizer-display {
+        min-height: 215px;
+        padding: 8px;
+      }
+
+      .randomizer-wheel {
+        width: 125px;
+        margin-bottom: 10px;
+      }
+
+      #randomActivity {
+        min-height: 68px;
+        font-size: clamp(28px, 9vw, 42px);
+      }
+
+      .popup-box h2 {
+        font-size: 30px;
+      }
+
+      .popup-box p {
+        font-size: 17px;
+      }
+
+      .pick-button,
+      .activity-result-button {
+        min-width: 190px;
+        font-size: 16px;
+      }
+
+      /* Phones use tap rather than hover */
+      .menu-item.show:hover,
+      .walkins.show:hover {
+        z-index: inherit;
+      }
+
+      .menu-item.show:active {
+        opacity: .82;
+      }
+.while-you-wait-button {
+  width: 82%;
+  min-width: 0;
+
+  left: 50%;
+  bottom: 1.5%;
+
+  padding: 15px 18px;
+
+  font-size: 18px;
+}
+    }
+    
+
+    /* Shorter phones */
+    @media (max-width: 700px) and (max-height: 720px) {
+
+      .table-section {
+  min-height: 175svh;
+}
+
+.cafe {
+  top: 0;
+}
+
+.walkins {
+  top: 23%;
+}
+
+.pickforme {
+  top: 47%;
+}
+
+.workshop-calendar {
+  top: 70%;
+}
+
+.tinker-helper {
+  top: 91%;
+}
+}
+    /* Phone turned sideways */
+    @media (max-width: 900px) and (orientation: landscape) {
+
+      .table-section {
+        min-height: 165vh;
+        background-size: cover;
+      }
+
+      .cafe,
+      .walkins,
+      .pickforme {
+        width: 48vw;
+        height: 48vw;
+      }
+
+      .cafe {
+        left: -7%;
+        top: 8%;
+      }
+
+      .walkins {
+        left: 50%;
+        top: -5%;
+      }
+
+      .pickforme {
+        right: -6%;
+        top: 8%;
+      }
+
+      .tinker-helper {
+        width: 27vw;
+        top: 58%;
+        right: 2%;
+      }
+      
+.workshop-calendar {
+  width: 42vw;
+  height: 42vw;
+}
+      
+      
+
+    }
+
+
+
+    /* ==============================
+       REDUCED MOTION
+    ============================== */
+
+    @media (prefers-reduced-motion: reduce) {
+
+      html {
+        scroll-behavior: auto;
+      }
+
+      .sign {
+        animation: none;
+      }
+
+      .menu-item,
+      .popup-box,
+      .popup-overlay {
+        transition: none;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+  <!-- ==============================
+       WELCOME + CAMERA TRANSITION
+  ============================== -->
+
+  <div class="transition-zone" id="transitionZone">
+
+    <div class="transition-screen">
+
+      <!-- Full tabletop waiting underneath -->
+
+      <div class="table-backdrop"></div>
+
+
+      <!-- Blue wall that fades away -->
+
+      <div class="wall-layer" id="wallLayer"></div>
+
+
+      <!-- Hanging sign -->
+
+      <div class="sign-scroll" id="signScroll">
+
+        <img
+          src="Images/welcomesign.png"
+          class="sign"
+          alt="Welcome to Tinker"
+        >
+
+      </div>
+
+
+      <!-- Order text -->
+
+      <img
+        src="Images/ORDERTEXT.png"
+        class="order-text"
+        id="orderText"
+        alt="Please place your order at the desk"
+      >
+
+
+      <!-- Small table that zooms forward -->
+
+      <img
+        src="Images/littletable.png"
+        class="little-table"
+        id="littleTable"
+        alt=""
+      >
+
+    </div>
+
+  </div>
+
+
+  <!-- ==============================
+       REAL ARTIST TABLE
+  ============================== -->
+
+  <section class="table-section">
+
+    <img
+      src="Images/cafe.png"
+      class="menu-item cafe"
+      alt="Café"
+    >
+
+    <img
+      src="Images/walkins.png"
+      class="menu-item walkins"
+      alt="Walk-ins"
+    >
+
+    <img
+      src="Images/pickforme.png"
+      class="menu-item pickforme"
+      alt="Pick for me"
+    >
+<img
+  src="Images/workshopcalendar.png"
+  class="menu-item workshop-calendar"
+  alt="Workshop Calendar"
+>
+
+<!-- TINKER HELP BUTTON -->
+
+<div class="tinker-helper" id="tinkerHelper">
+
+  <button
+    class="tinker-button"
+    id="tinkerButton"
+    type="button"
+    aria-label="Ask Tinker for help"
+  >
+    <img
+      src="Images/tinkerlyingdown.png"
+      class="tinker-lying"
+      alt="Tinker lying on the table"
+    >
+  </button>
+
+
+  <div
+    class="tinker-bubble"
+    id="tinkerBubble"
+    aria-live="polite"
+  >
+
+    <button
+      class="bubble-close"
+      id="bubbleClose"
+      type="button"
+      aria-label="Close help message"
+    >
+      ×
+    </button>
+
+    <p
+      class="bubble-message"
+      id="bubbleMessage"
+    >
+      Do you need any help?
+    </p>
+
+    <div
+      class="bubble-actions"
+      id="bubbleActions"
+    >
+
+      <button
+        class="help-choice help-yes"
+        id="helpYes"
+        type="button"
+      >
+        Yes, please
+      </button>
+
+      <button
+        class="help-choice help-no"
+        id="helpNo"
+        type="button"
+      >
+        No, thanks
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+<a
+  href="whileyouwait.html"
+  class="while-you-wait-button"
+>
+  Tinker While You Wait →
+</a>
+
+
+  </section>
+
+
+  <!-- ==============================
+       PICK FOR ME RANDOMIZER
+  ============================== -->
+
+  <div class="popup-overlay" id="popupOverlay">
+    <div class="popup-box randomizer-box">
+      <button class="close-popup" id="closePopup" type="button" aria-label="Close">×</button>
+
+      <p class="randomizer-label" id="randomizerLabel">Let Tinker decide...</p>
+
+      <div class="randomizer-display">
+        <img
+          src="Images/pickforme.png"
+          class="randomizer-wheel"
+          id="randomizerWheel"
+          alt=""
+        >
+        <h2 id="randomActivity">Ready?</h2>
+      </div>
+
+      <button class="pick-button" id="startRandomizer" type="button">Pick For Me!</button>
+
+      <button class="activity-result-button" id="activityResultButton" type="button">
+        View Activity →
+      </button>
+    </div>
+  </div>
+
+
+  <script>
+
+    /* ==============================
+       HELPERS
+    ============================== */
+
+    function clamp(value, minimum, maximum) {
+
+      return Math.min(
+        Math.max(value, minimum),
+        maximum
+      );
+
+    }
+
+
+    function smoothStep(start, end, value) {
+
+      const amount =
+        clamp(
+          (value - start) / (end - start),
+          0,
+          1
+        );
+
+      return amount * amount * (3 - 2 * amount);
+
+    }
+
+
+
+    /* ==============================
+       CAMERA TABLE TRANSITION
+    ============================== */
+
+    const transitionZone =
+      document.getElementById("transitionZone");
+
+    const wallLayer =
+      document.getElementById("wallLayer");
+
+    const signScroll =
+      document.getElementById("signScroll");
+
+    const orderText =
+      document.getElementById("orderText");
+
+    const littleTable =
+      document.getElementById("littleTable");
+
+    const reduceMotion =
+      window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+      ).matches;
+
+    let animationFrameRequested =
+      false;
+
+
+    function animateTransition() {
+
+  const zoneTop =
+    transitionZone.offsetTop;
+
+  const scrollDistance =
+    transitionZone.offsetHeight -
+    window.innerHeight;
+
+  let progress =
+    (window.scrollY - zoneTop) /
+    scrollDistance;
+
+  progress =
+    clamp(progress, 0, 1);
+
+
+  /*
+    Smooth cubic movement.
+
+        This prevents the zoom from feeling
+        harsh or robotic.
+      */
+
+      const easedProgress =
+        1 - Math.pow(1 - progress, 3);
+
+
+      /*
+        SIGN
+
+        Moves upward and fades during
+        the first part of the transition.
+      */
+
+      const signExit =
+        smoothStep(.05, .58, progress);
+
+      signScroll.style.transform = `
+        translateX(-50%)
+        translateY(${
+          signExit * -360
+        }px)
+      `;
+
+      signScroll.style.opacity =
+        1 - signExit;
+
+
+      /*
+        ORDER TEXT
+
+        Moves upward slightly later than
+        the hanging sign.
+      */
+
+      const textExit =
+        smoothStep(.12, .62, progress);
+
+      orderText.style.transform = `
+        translateX(-50%)
+        translateY(${
+          textExit * -250
+        }px)
+      `;
+
+      orderText.style.opacity =
+        1 - textExit;
+
+
+      /*
+        SMALL TABLE ZOOM
+
+        The small table grows toward the
+        viewer like a camera moving closer.
+      */
+
+      const tableScale =
+        reduceMotion
+          ? 1
+          : 1 + easedProgress * 10;
+
+      const tableMovement =
+        reduceMotion
+          ? 0
+          : easedProgress * -8;
+
+      littleTable.style.transform = `
+        scale(${tableScale})
+        translateY(${tableMovement}%)
+      `;
+
+
+      /*
+        Fade the little table only near
+        the end so it blends into the
+        real full tabletop behind it.
+      */
+
+      const smallTableFade =
+        smoothStep(.78, 1, progress);
+
+      littleTable.style.opacity =
+        1 - smallTableFade;
+
+
+      /*
+        BLUE WALL FADE
+
+        The wall stays visible at first,
+        then gradually reveals the tabletop.
+      */
+
+      const wallFade =
+        smoothStep(.42, .94, progress);
+
+      wallLayer.style.opacity =
+        1 - wallFade;
+
+
+      animationFrameRequested =
+        false;
+
+    }
+
+
+    function requestTransitionAnimation() {
+
+      if (!animationFrameRequested) {
+
+        animationFrameRequested =
+          true;
+
+        window.requestAnimationFrame(
+          animateTransition
+        );
+
+      }
+
+    }
+
+
+    window.addEventListener(
+      "scroll",
+      requestTransitionAnimation,
+      { passive: true }
+    );
+
+    window.addEventListener(
+      "resize",
+      requestTransitionAnimation
+    );
+
+    animateTransition();
+
+
+
+    /* ==============================
+       TABLE ITEMS APPEAR
+    ============================== */
+
+    const tableSection =
+      document.querySelector(".table-section");
+
+    const menuItems =
+      document.querySelectorAll(".menu-item");
+
+    let menuAnimated =
+      false;
+
+
+    const observer =
+      new IntersectionObserver(
+
+        (entries) => {
+
+          entries.forEach((entry) => {
+
+            if (
+              entry.isIntersecting &&
+              !menuAnimated
+            ) {
+
+              menuAnimated = true;
+
+              menuItems.forEach(
+                (item, index) => {
+
+                  setTimeout(() => {
+
+                    item.classList.add("show");
+
+                  }, index * 450);
+
+                }
+              );
+
+            }
+
+          });
+
+        },
+
+        {
+          threshold: .25
+        }
+
+      );
+
+
+    observer.observe(tableSection);
+
+
+
+    /* ==============================
+       PAGE LINKS
+    ============================== */
+
+    document
+      .querySelector(".cafe")
+      .addEventListener("click", () => {
+
+        window.location.href =
+          "cafe.html";
+
+      });
+
+
+    document
+      .querySelector(".walkins")
+      .addEventListener("click", () => {
+
+        window.location.href =
+          "walkins.html";
+
+      });
+      document
+  .querySelector(".workshop-calendar")
+  .addEventListener("click", () => {
+
+    window.location.href =
+      "workshopcalendar.html";
+
+  });
+    
+      
+
+    /* ==============================
+       PICK FOR ME RANDOMIZER
+    ============================== */
+
+    const popupOverlay = document.getElementById("popupOverlay");
+    const closePopup = document.getElementById("closePopup");
+    const startRandomizer = document.getElementById("startRandomizer");
+    const randomActivity = document.getElementById("randomActivity");
+    const randomizerLabel = document.getElementById("randomizerLabel");
+    const randomizerWheel = document.getElementById("randomizerWheel");
+    const activityResultButton = document.getElementById("activityResultButton");
+
+    const randomActivities = [
+      { name: "Air-Dry Clay", link: "walkins.html#air-dry-clay" },
+      { name: "Cake Painting", link: "walkins.html#cake-painting" },
+      { name: "Coloring Page", link: "walkins.html#coloring-page" },
+      { name: "Puzzle Paint", link: "walkins.html#puzzle-paint" },
+      { name: "Frame Embroidery", link: "walkins.html#frame-embroidery" },
+      { name: "Bedazzle a Hair Clip", link: "walkins.html#hair-clip" },
+      { name: "Mandala Circle", link: "walkins.html#mandala-circle" },
+      { name: "Pour Paint", link: "walkins.html#pour-paint" },
+      { name: "Scratch Art", link: "walkins.html#scratch-art" },
+      { name: "Wooden Flower", link: "walkins.html#wooden-flower" }
+    ];
+
+    let randomizerRunning = false;
+    let randomizerTimer = null;
+    let selectedActivityLink = "";
+
+    document.querySelector(".pickforme").addEventListener("click", () => {
+      resetRandomizer();
+      popupOverlay.classList.add("active");
+    });
+
+    startRandomizer.addEventListener("click", runRandomizer);
+
+    activityResultButton.addEventListener("click", () => {
+      if (selectedActivityLink) {
+        window.location.href = selectedActivityLink;
+      }
+    });
+
+    closePopup.addEventListener("click", closeRandomizer);
+
+    popupOverlay.addEventListener("click", (event) => {
+      if (event.target === popupOverlay && !randomizerRunning) closeRandomizer();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && !randomizerRunning) closeRandomizer();
+    });
+
+    function runRandomizer() {
+      if (randomizerRunning) return;
+
+      randomizerRunning = true;
+      startRandomizer.disabled = true;
+      startRandomizer.textContent = "Tinker is thinking...";
+      randomizerLabel.textContent = "Choosing your activity...";
+      activityResultButton.classList.remove("show");
+      randomizerWheel.classList.add("spinning");
+      randomActivity.classList.remove("winner");
+
+      const winner = randomActivities[Math.floor(Math.random() * randomActivities.length)];
+      let currentIndex = Math.floor(Math.random() * randomActivities.length);
+      let flips = 0;
+      const totalFlips = 23;
+
+      function showNextActivity() {
+        randomActivity.classList.remove("flipping");
+        void randomActivity.offsetWidth;
+        randomActivity.classList.add("flipping");
+        randomActivity.textContent = randomActivities[currentIndex].name;
+        currentIndex = (currentIndex + 1) % randomActivities.length;
+        flips++;
+
+        if (flips < totalFlips) {
+          const delay = 65 + Math.pow(flips / totalFlips, 2.4) * 330;
+          randomizerTimer = window.setTimeout(showNextActivity, delay);
+        } else {
+          revealWinner(winner);
+        }
+      }
+
+      showNextActivity();
+    }
+
+    function revealWinner(winner) {
+      randomizerWheel.classList.remove("spinning");
+      randomActivity.classList.remove("flipping");
+      randomActivity.textContent = winner.name;
+      void randomActivity.offsetWidth;
+      randomActivity.classList.add("winner");
+      randomizerLabel.textContent = "Tinker picked...";
+      selectedActivityLink = winner.link;
+      activityResultButton.textContent = `View ${winner.name} →`;
+      activityResultButton.classList.add("show");
+      startRandomizer.textContent = "Pick Again";
+      startRandomizer.disabled = false;
+      randomizerRunning = false;
+    }
+
+    function resetRandomizer() {
+      if (randomizerTimer) {
+        window.clearTimeout(randomizerTimer);
+        randomizerTimer = null;
+      }
+      randomActivity.textContent = "Ready?";
+      randomActivity.classList.remove("winner", "flipping");
+      randomizerLabel.textContent = "Let Tinker decide...";
+      randomizerWheel.classList.remove("spinning");
+      activityResultButton.classList.remove("show");
+      selectedActivityLink = "";
+      startRandomizer.textContent = "Pick For Me!";
+      startRandomizer.disabled = false;
+      randomizerRunning = false;
+    }
+
+    function closeRandomizer() {
+      if (randomizerRunning) return;
+      popupOverlay.classList.remove("active");
+    }
+    /* ==============================
+   TINKER HELP BUBBLE
+============================== */
+
+const tinkerButton =
+  document.getElementById(
+    "tinkerButton"
+  );
+
+const tinkerBubble =
+  document.getElementById(
+    "tinkerBubble"
+  );
+
+const bubbleMessage =
+  document.getElementById(
+    "bubbleMessage"
+  );
+
+const bubbleActions =
+  document.getElementById(
+    "bubbleActions"
+  );
+
+const helpYes =
+  document.getElementById(
+    "helpYes"
+  );
+
+const helpNo =
+  document.getElementById(
+    "helpNo"
+  );
+
+const bubbleClose =
+  document.getElementById(
+    "bubbleClose"
+  );
+
+
+tinkerButton.addEventListener(
+  "click",
+  () => {
+
+    const isOpen =
+      tinkerBubble.classList.contains(
+        "active"
+      );
+
+    if (isOpen) {
+
+      closeTinkerBubble();
+
+    } else {
+
+      resetTinkerBubble();
+
+      tinkerBubble.classList.add(
+        "active"
+      );
+
+    }
+
+  }
+);
+
+
+helpYes.addEventListener(
+  "click",
+  () => {
+
+    bubbleMessage.textContent =
+      "Please call one of our staff members at the desk and they’ll be happy to help!";
+
+    bubbleActions.style.display =
+      "none";
+
+  }
+);
+
+
+helpNo.addEventListener(
+  "click",
+  closeTinkerBubble
+);
+
+
+bubbleClose.addEventListener(
+  "click",
+  closeTinkerBubble
+);
+
+
+function resetTinkerBubble() {
+
+  bubbleMessage.textContent =
+    "Do you need any help?";
+
+  bubbleActions.style.display =
+    "flex";
+
+}
+
+
+function closeTinkerBubble() {
+
+  tinkerBubble.classList.remove(
+    "active"
+  );
+
+}
+  </script>
+
+
+</body>
+
+</html>
