@@ -1955,27 +1955,153 @@ body.loading {
     const randomizerWheel = document.getElementById("randomizerWheel");
     const activityResultButton = document.getElementById("activityResultButton");
 
-    const randomActivities = [
-      { name: "Air-Dry Clay", link: "walkins.html#air-dry-clay" },
-      { name: "Cake Painting", link: "walkins.html#cake-painting" },
-      { name: "Coloring Page", link: "walkins.html#coloring-page" },
-      { name: "Puzzle Paint", link: "walkins.html#puzzle-paint" },
-      { name: "Frame Embroidery", link: "walkins.html#frame-embroidery" },
-      { name: "Bedazzle a Hair Clip", link: "walkins.html#hair-clip" },
-      { name: "Mandala Circle", link: "walkins.html#mandala-circle" },
-      { name: "Pour Paint", link: "walkins.html#pour-paint" },
-      { name: "Scratch Art", link: "walkins.html#scratch-art" },
-      { name: "Wooden Flower", link: "walkins.html#wooden-flower" },
-      { name: "Mini Canvas Painting", link: "walkins.html#mini-canvas" }
-    ];
+    /* ============================================
+       PICK FOR ME DATA
+       Uses the SAME Google Sheet as walkins.html.
+       This keeps names + IDs automatically synced.
+       ============================================ */
+
+    const WALKINS_SHEET_URL =
+      "https://docs.google.com/spreadsheets/d/e/2PACX-1vTesdo6cBVhkt4L8aM1JTOtK_hcA6-rcIshRiAN7_Th527lK8UBKab8v45AI0VrrACorO9IypHUMoZc/pub?gid=0&single=true&output=csv";
+
+    let randomActivities = [];
+    let randomActivitiesLoaded = false;
+
+    function parseWalkInsCSV(text) {
+      const rows = [];
+      let row = [];
+      let value = "";
+      let inQuotes = false;
+
+      for (let i = 0; i < text.length; i++) {
+        const char = text[i];
+        const next = text[i + 1];
+
+        if (char === '"') {
+          if (inQuotes && next === '"') {
+            value += '"';
+            i++;
+          } else {
+            inQuotes = !inQuotes;
+          }
+        } else if (char === "," && !inQuotes) {
+          row.push(value);
+          value = "";
+        } else if ((char === "\n" || char === "\r") && !inQuotes) {
+          if (char === "\r" && next === "\n") i++;
+
+          row.push(value);
+          value = "";
+
+          if (row.some(cell => cell.trim() !== "")) {
+            rows.push(row);
+          }
+
+          row = [];
+        } else {
+          value += char;
+        }
+      }
+
+      if (value.length || row.length) {
+        row.push(value);
+
+        if (row.some(cell => cell.trim() !== "")) {
+          rows.push(row);
+        }
+      }
+
+      if (!rows.length) return [];
+
+      const headers = rows[0].map(header => header.trim());
+
+      return rows.slice(1).map(cells => {
+        const item = {};
+
+        headers.forEach((header, index) => {
+          item[header] = (cells[index] ?? "").trim();
+        });
+
+        return item;
+      });
+    }
+
+    async function loadRandomActivities() {
+      if (randomActivitiesLoaded && randomActivities.length) {
+        return true;
+      }
+
+      try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 6000);
+
+        const response = await fetch(WALKINS_SHEET_URL, {
+          signal: controller.signal,
+          cache: "no-store"
+        });
+
+        clearTimeout(timeoutId);
+
+        if (!response.ok) {
+          throw new Error(`Google Sheet returned ${response.status}`);
+        }
+
+        const csvText = await response.text();
+        const sheetActivities = parseWalkInsCSV(csvText);
+
+        randomActivities = sheetActivities
+          .filter(activity => {
+            const active = String(activity.Active || "TRUE").toUpperCase();
+
+            return (
+              active !== "FALSE" &&
+              activity.ID &&
+              activity.Name
+            );
+          })
+          .sort((a, b) => {
+            const orderA = Number(a.Order) || 9999;
+            const orderB = Number(b.Order) || 9999;
+            return orderA - orderB;
+          })
+          .map(activity => ({
+            name: activity.Name,
+            id: activity.ID,
+            link: `walkins.html#${encodeURIComponent(activity.ID)}`
+          }));
+
+        randomActivitiesLoaded = randomActivities.length > 0;
+        return randomActivitiesLoaded;
+
+      } catch (error) {
+        console.error("Could not load Pick For Me activities:", error);
+        randomActivities = [];
+        randomActivitiesLoaded = false;
+        return false;
+      }
+    }
 
     let randomizerRunning = false;
     let randomizerTimer = null;
     let selectedActivityLink = "";
 
-    document.querySelector(".pickforme").addEventListener("click", () => {
+    document.querySelector(".pickforme").addEventListener("click", async () => {
       resetRandomizer();
       popupOverlay.classList.add("active");
+
+      randomizerLabel.textContent = "Loading today’s activities...";
+      startRandomizer.disabled = true;
+
+      const loaded = await loadRandomActivities();
+
+      if (loaded) {
+        randomizerLabel.textContent = "Let Tinker decide...";
+        startRandomizer.disabled = false;
+      } else {
+        randomizerLabel.textContent = "Activities couldn’t load. Try again.";
+        startRandomizer.textContent = "Try Again";
+        startRandomizer.disabled = false;
+      }
     });
 
     startRandomizer.addEventListener("click", runRandomizer);
@@ -1996,8 +2122,22 @@ body.loading {
       if (event.key === "Escape" && !randomizerRunning) closeRandomizer();
     });
 
-    function runRandomizer() {
+    async function runRandomizer() {
       if (randomizerRunning) return;
+
+      if (!randomActivities.length) {
+        randomizerLabel.textContent = "Loading today’s activities...";
+        startRandomizer.disabled = true;
+
+        const loaded = await loadRandomActivities();
+
+        if (!loaded) {
+          randomizerLabel.textContent = "Activities couldn’t load. Try again.";
+          startRandomizer.textContent = "Try Again";
+          startRandomizer.disabled = false;
+          return;
+        }
+      }
 
       randomizerRunning = true;
       startRandomizer.disabled = true;
